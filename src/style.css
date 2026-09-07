@@ -1,15 +1,256 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #fdf8f0;
-  --color-sage-50: #f4f7f4;
-  --color-sage-100: #e6ede6;
-  --color-sage-200: #ccdacc;
-  --color-sage-300: #a8c0a8;
-  --color-sage-400: #7ea07e;
-  --color-sage-500: #5e845e;
-  --color-sage-600: #4a6b4a;
-  --color-sage-700: #3a553a;
-  --color-sage-800: #2e432e;
-  --color-sage-900: #1e2e1e;
+  /* ---- Grounds: warm neutrals keep the palette from reading as all-green ---- */
+  --color-linen: #faf7f2;
+  --color-shell: #f3ece2;
+  --color-sand: #e8dccd;
+
+  /* ---- Sage: sampled from the logo leaves and wordmark ---- */
+  --color-sage-50: #f3f6f1;
+  --color-sage-100: #e5ece1;
+  --color-sage-200: #ccdac5;
+  --color-sage-300: #adc2a3;
+  --color-sage-400: #8fae86;
+  --color-sage-500: #6f9166;
+  --color-sage-600: #567551;
+  --color-sage-700: #3f5b3d;
+  --color-sage-800: #2b4230;
+  --color-sage-900: #1c3327;
+
+  /* ---- Ink: text colors, warmer than pure gray ---- */
+  --color-ink: #1c3327;
+  --color-ink-soft: #4a5f52;
+  --color-ink-muted: #77877c;
+
+  /* ---- Clay: the warm counterweight to the sage ---- */
+  --color-clay-50: #fdf5ef;
+  --color-clay-100: #f8e6d8;
+  --color-clay-200: #f0cfb7;
+  --color-clay-300: #e3ae89;
+  --color-clay-400: #d18e65;
+  --color-clay-500: #b9714a;
+  --color-clay-600: #9a5a39;
+
+  /* ---- Lilac: used sparingly, mostly in gradient washes ---- */
+  --color-lilac-100: #efecf6;
+  --color-lilac-200: #ded8ec;
+  --color-lilac-300: #c4b9dd;
+
+  /* ---- Type ---- */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans:
+    "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---- Elevation: soft, warm-tinted shadows rather than neutral grey ---- */
+  --shadow-soft: 0 18px 40px -26px rgb(28 51 39 / 0.3);
+  --shadow-lift: 0 30px 60px -30px rgb(28 51 39 / 0.38);
+  --shadow-glass: 0 20px 50px -30px rgb(28 51 39 / 0.35);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-linen);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  /* Visible keyboard focus for every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-sage-600);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* ---- Frosted glass ---------------------------------------------------- */
+  .glass {
+    background-color: rgb(255 255 255 / 0.55);
+    backdrop-filter: blur(16px) saturate(1.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    border: 1px solid rgb(255 255 255 / 0.65);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-dark {
+    background-color: rgb(28 51 39 / 0.42);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    border: 1px solid rgb(255 255 255 / 0.16);
+  }
+
+  /* Side drawer: translucent enough to read the page behind it, opaque
+     enough for the menu text to stay legible. Must NOT be nested inside
+     another backdrop-filter element or the blur is silently dropped. */
+  .glass-drawer {
+    background-color: rgb(250 247 242 / 0.5);
+    backdrop-filter: blur(22px) saturate(1.6);
+    -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  }
+
+  .glass-nav {
+    background-color: rgb(250 247 242 / 0.72);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  }
+
+  /* ---- Decorative background blobs ------------------------------------- */
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.55;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  /* ---- Scroll reveal (see src/directives/reveal.js) --------------------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---- Marquee / announcement ticker ----------------------------------- */
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 38s linear infinite;
+  }
+
+  .ticker:hover .ticker-track,
+  .ticker:focus-within .ticker-track {
+    animation-play-state: paused;
+  }
+
+  /* ---- Underline that draws in on hover -------------------------------- */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1.5px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-underline:hover::after,
+  .link-underline[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(24px, -30px, 0) scale(1.06);
+  }
+  66% {
+    transform: translate3d(-20px, 18px, 0) scale(0.96);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@utility animate-drift {
+  animation: drift 22s ease-in-out infinite;
+}
+
+@utility animate-float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Motion is decoration here — remove all of it when the user asks for less. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ticker-track {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+  }
 }

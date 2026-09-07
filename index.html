@@ -2,12 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bliss-mind</title>
+    <meta name="theme-color" content="#1c3327" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Cormorant Garamond echoes the logo wordmark; Manrope carries the UI. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Baseline metadata. Per-page title/description/OG tags are managed at
+         runtime from the route table (see src/router/index.js + src/App.vue). -->
+    <title>Bliss Mind — Mental health. Mindful living. Real support.</title>
+    <meta
+      name="description"
+      content="Virtual psychiatric care in Kansas with Dr. Jemimah Ukata, PMHNP. Treating anxiety, depression, ADHD, PTSD, OCD, sleep disorders and postpartum depression. Free 15-minute consultation."
+    />
+    <meta property="og:image" content="https://blissmind.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Bliss Mind — Mental health. Mindful living. Real support."
+    />
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+
+    <!--
+      Netlify detects forms by parsing static HTML at deploy time. The real form
+      is rendered by Vue and is therefore invisible to that parser, so this
+      hidden copy registers the form and its fields. Keep the name attributes
+      here in sync with src/pages/Contact.vue.
+    -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="reason" />
+      <input type="text" name="preferredContact" />
+      <input type="text" name="bestTime" />
+      <input name="bot-field" />
+    </form>
   </body>
 </html>

@@ -6,17 +6,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --fix",
+    "format": "prettier --write .",
+    "assets": "node scripts/build-assets.mjs"
   },
   "dependencies": {
+    "@vueuse/head": "^2.0.0",
     "vue": "^3.5.38",
-    "vue-meta": "^2.4.0",
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/vite": "^4.3.1",
     "@vitejs/plugin-vue": "^6.0.7",
-    "@vueuse/head": "^2.0.0",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "eslint": "^10.10.0",
+    "eslint-plugin-vue": "^10.11.0",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.6",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.3.1",
     "vite": "^8.1.0"
   }

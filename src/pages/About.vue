@@ -1,154 +1,193 @@
 <template>
   <div>
-    <!-- Page Header -->
-    <section class="bg-sage-800 px-6 py-20 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">About Us</h1>
-      <p class="text-sage-200 text-lg max-w-xl mx-auto">
-        Get to know the people and principles behind Bliss Mind.
-      </p>
-    </section>
+    <PageHeader
+      eyebrow="About"
+      title="Care that starts with"
+      accent=" listening."
+      :subtitle="`Bliss Mind is the practice of ${provider.name}, ${provider.credentials} — virtual psychiatric care for adults across ${practice.state}.`"
+    />
 
-    <!-- Mission -->
-    <section class="bg-cream px-6 py-20">
-      <div class="max-w-4xl mx-auto text-center">
-        <span
-          class="inline-block text-xs font-semibold uppercase tracking-widest text-sage-600 bg-sage-100 px-4 py-1 rounded-full mb-6"
-        >
-          Our Mission
-        </span>
-        <h2 class="text-3xl md:text-4xl font-bold text-sage-900 mb-6">
-          Healing Minds, Restoring Lives
-        </h2>
-        <p class="text-sage-700 text-lg leading-relaxed">
-          At Bliss Mind, we believe that mental health is not a luxury — it is a
-          fundamental right. Our mission is to provide accessible,
-          compassionate, and evidence-based psychiatric care that empowers every
-          individual to live a fuller, healthier life.
-        </p>
-      </div>
-    </section>
+    <!-- ================= Provider ================= -->
+    <section class="relative isolate overflow-hidden px-6 py-20 md:py-28">
+      <BlobField palette="mixed" class="opacity-40" />
 
-    <!-- Values -->
-    <section class="bg-white px-6 py-20">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-sage-900 text-center mb-4">
-          Our Core Values
-        </h2>
-        <p class="text-center text-sage-700 mb-14 max-w-xl mx-auto">
-          Everything we do is guided by these principles.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div
-            v-for="value in values"
-            :key="value.title"
-            class="bg-cream rounded-2xl p-6 text-center hover:shadow-md transition"
+      <div
+        class="relative mx-auto grid max-w-5xl items-start gap-14 md:grid-cols-12"
+      >
+        <div v-reveal class="md:col-span-5">
+          <div class="glass sticky top-28 rounded-[2.5rem] p-8 text-center">
+            <div
+              class="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-sage-800 font-display text-5xl text-linen"
+              aria-hidden="true"
+            >
+              JU
+            </div>
+            <h2 class="mt-6 font-display text-3xl font-medium text-ink">
+              {{ provider.name }}
+            </h2>
+            <p
+              class="mt-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-sage-600"
+            >
+              {{ provider.role }}
+            </p>
+
+            <ul class="mt-7 space-y-3 text-left">
+              <li
+                v-for="q in provider.qualifications"
+                :key="q"
+                class="flex items-start gap-3 text-sm text-ink-soft"
+              >
+                <svg
+                  class="mt-0.5 h-4 w-4 shrink-0 text-sage-500"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="m3 8.5 3.2 3.2L13 5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                {{ q }}
+              </li>
+            </ul>
+
+            <PillLink to="/contact" class="mt-8 w-full" arrow>
+              Book a free consult
+            </PillLink>
+          </div>
+        </div>
+
+        <div class="md:col-span-7">
+          <span
+            v-reveal
+            class="inline-flex items-center gap-2 rounded-full border border-sage-200/70 bg-sage-100/70 px-4 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-sage-700"
           >
-            <div class="text-4xl mb-4">{{ value.icon }}</div>
-            <h3 class="text-base font-semibold text-sage-900 mb-2">
-              {{ value.title }}
+            <span
+              class="h-1.5 w-1.5 rounded-full bg-clay-400"
+              aria-hidden="true"
+            ></span>
+            Our approach
+          </span>
+
+          <h2
+            v-reveal="60"
+            class="mt-5 font-display text-4xl font-medium leading-[1.1] text-ink md:text-5xl"
+          >
+            Mental health is not a luxury.
+          </h2>
+
+          <div
+            class="mt-7 space-y-5 text-base leading-relaxed text-ink-soft md:text-lg"
+          >
+            <p
+              v-for="(para, i) in provider.bio"
+              :key="i"
+              v-reveal="100 + i * 60"
+            >
+              {{ para }}
+            </p>
+          </div>
+
+          <div
+            v-reveal="240"
+            class="mt-10 rounded-3xl border border-sand bg-shell p-7"
+          >
+            <h3
+              class="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-sage-600"
+            >
+              Where we practice
             </h3>
-            <p class="text-sm text-sage-700 leading-relaxed">
-              {{ value.desc }}
+            <p class="mt-3 text-sm leading-relaxed text-ink-soft">
+              {{ practice.locationNote }}
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Team -->
-    <section class="bg-cream px-6 py-20">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-sage-900 text-center mb-4">
-          Meet the Team
-        </h2>
-        <p class="text-center text-sage-700 mb-14 max-w-xl mx-auto">
-          Experienced professionals dedicated to your mental well-being.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div
-            v-for="member in team"
-            :key="member.name"
-            class="bg-white rounded-2xl p-8 text-center hover:shadow-md transition border border-sage-100"
+    <!-- ================= Values ================= -->
+    <section class="bg-shell px-6 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl">
+        <SectionHeading
+          eyebrow="What guides the work"
+          title="Four things that shape"
+          accent=" every appointment."
+        />
+
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <BaseCard
+            v-for="(value, i) in values"
+            :key="value.title"
+            v-reveal="i * 80"
+            tone="white"
           >
             <div
-              class="w-20 h-20 rounded-full bg-sage-100 flex items-center justify-center text-4xl mx-auto mb-4"
+              class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-sage-50 text-sage-700"
             >
-              {{ member.avatar }}
+              <AppIcon :name="value.icon" />
             </div>
-            <h3 class="text-lg font-semibold text-sage-900">
-              {{ member.name }}
+            <h3 class="font-display text-2xl font-medium text-ink">
+              {{ value.title }}
             </h3>
-            <p class="text-sm text-sage-600 mb-3">{{ member.role }}</p>
-            <p class="text-sm text-sage-700 leading-relaxed">
-              {{ member.bio }}
+            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+              {{ value.desc }}
             </p>
-          </div>
+          </BaseCard>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="bg-sage-800 px-6 py-20 text-center">
-      <div class="max-w-2xl mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-4">
-          Ready to Begin Your Journey?
-        </h2>
-        <p class="text-sage-200 text-lg mb-8">
-          Our team is here to support you every step of the way.
-        </p>
-        <RouterLink
-          to="/contact"
-          class="inline-block bg-white text-sage-800 font-semibold px-8 py-3 rounded-full hover:bg-sage-100 transition"
-        >
-          Book an Appointment
-        </RouterLink>
+    <!-- ================= FAQ ================= -->
+    <section class="px-6 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl">
+        <SectionHeading eyebrow="Good to know" title="Questions, answered." />
+        <FaqAccordion :items="faqs" />
       </div>
     </section>
+
+    <CtaBanner
+      title="Ready when you are."
+      text="The first step is a free 15-minute conversation. Nothing more."
+      :note="practice.locationNote"
+    />
   </div>
 </template>
 
 <script setup>
+import AppIcon from "../components/AppIcon.vue";
+import BaseCard from "../components/BaseCard.vue";
+import BlobField from "../components/BlobField.vue";
+import CtaBanner from "../components/CtaBanner.vue";
+import FaqAccordion from "../components/FaqAccordion.vue";
+import PageHeader from "../components/PageHeader.vue";
+import PillLink from "../components/PillLink.vue";
+import SectionHeading from "../components/SectionHeading.vue";
+import { provider, practice, faqs } from "../data/site.js";
+
 const values = [
   {
-    icon: "💛",
-    title: "Empathy",
-    desc: "We lead with compassion and genuine care for every patient.",
+    icon: "heart",
+    title: "Empathy first",
+    desc: "You are a person with a story, not a checklist of symptoms. That is where every appointment starts.",
   },
   {
-    icon: "🔬",
-    title: "Evidence-Based",
-    desc: "Our treatments are grounded in the latest clinical research.",
+    icon: "flask",
+    title: "Evidence-based",
+    desc: "Treatment grounded in current clinical research, explained in plain language so you can make real decisions.",
   },
   {
-    icon: "🔒",
-    title: "Confidentiality",
-    desc: "Your privacy is protected at every step of your care.",
+    icon: "lock",
+    title: "Confidential",
+    desc: "What you share is protected. Privacy is not a policy page here, it is how the practice runs.",
   },
   {
-    icon: "🌱",
-    title: "Growth",
-    desc: "We are committed to your long-term healing and personal growth.",
-  },
-];
-
-const team = [
-  {
-    avatar: "👩‍⚕️",
-    name: "Dr. Sarah Okonkwo",
-    role: "Lead Psychiatrist",
-    bio: "Board-certified psychiatrist with over 15 years of experience in adult and adolescent mental health.",
-  },
-  {
-    avatar: "👨‍⚕️",
-    name: "Dr. James Adeyemi",
-    role: "Clinical Psychologist",
-    bio: "Specializes in cognitive behavioral therapy and trauma-informed care for individuals and groups.",
-  },
-  {
-    avatar: "👩‍⚕️",
-    name: "Dr. Amaka Nwosu",
-    role: "Psychiatric Nurse Practitioner",
-    bio: "Expert in medication management and holistic psychiatric support for chronic mental health conditions.",
+    icon: "sprout",
+    title: "Unhurried",
+    desc: "Progress at a pace that suits you, with plans that adjust as your needs change.",
   },
 ];
 </script>

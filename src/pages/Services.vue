@@ -1,166 +1,181 @@
 <template>
   <div>
-    <!-- Page Header -->
-    <section class="bg-sage-800 px-6 py-20 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-        Our Services
-      </h1>
-      <p class="text-sage-200 text-lg max-w-xl mx-auto">
-        Comprehensive psychiatric care tailored to your unique needs.
-      </p>
-    </section>
+    <PageHeader
+      eyebrow="Services"
+      title="Psychiatric care,"
+      accent=" built around you."
+      subtitle="Evaluation, medication management and ongoing support — delivered virtually, at a pace that works for your life."
+    />
 
-    <!-- Services Grid -->
-    <section class="bg-cream px-6 py-20">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
-            v-for="service in services"
-            :key="service.title"
-            class="bg-white rounded-2xl p-8 hover:shadow-md transition border border-sage-100"
-          >
-            <div class="text-4xl mb-4">{{ service.icon }}</div>
-            <h3 class="text-lg font-semibold text-sage-900 mb-3">
-              {{ service.title }}
-            </h3>
-            <p class="text-sm text-sage-700 leading-relaxed mb-4">
-              {{ service.desc }}
-            </p>
-            <ul class="space-y-2">
-              <li
-                v-for="point in service.points"
-                :key="point"
-                class="flex items-start gap-2 text-sm text-sage-700"
-              >
-                <span class="text-sage-500 mt-0.5">✓</span>
-                {{ point }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ================= Conditions ================= -->
+    <section class="relative isolate overflow-hidden px-6 py-20 md:py-28">
+      <BlobField palette="cool" class="opacity-40" />
 
-    <!-- Process -->
-    <section class="bg-white px-6 py-20">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold text-sage-900 text-center mb-4">
-          How It Works
-        </h2>
-        <p class="text-center text-sage-700 mb-14 max-w-xl mx-auto">
-          Getting started with Bliss Mind is simple and straightforward.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div
-            v-for="(step, index) in steps"
-            :key="step.title"
-            class="text-center"
+      <div class="relative mx-auto max-w-6xl">
+        <SectionHeading
+          eyebrow="What we treat"
+          title="Seven areas of"
+          accent=" focused care."
+          subtitle="If your concern is not listed, the free consultation is still the right place to start."
+        />
+
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <BaseCard
+            v-for="(condition, i) in conditions"
+            :key="condition.name"
+            v-reveal="i * 70"
+            tone="glass"
           >
             <div
-              class="w-12 h-12 rounded-full bg-sage-700 text-white flex items-center justify-center text-lg font-bold mx-auto mb-4"
+              class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/70 text-sage-700"
             >
-              {{ index + 1 }}
+              <AppIcon :name="condition.icon" />
             </div>
-            <h3 class="text-base font-semibold text-sage-900 mb-2">
-              {{ step.title }}
+            <h3 class="font-display text-2xl font-medium text-ink">
+              {{ condition.name }}
             </h3>
-            <p class="text-sm text-sage-700 leading-relaxed">{{ step.desc }}</p>
+            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+              {{ condition.desc }}
+            </p>
+          </BaseCard>
+
+          <div
+            v-reveal="conditions.length * 70"
+            class="flex flex-col justify-center rounded-3xl border border-dashed border-sage-300 bg-sage-50/60 p-8 text-center"
+          >
+            <p class="font-display text-2xl font-medium text-ink">
+              Something else?
+            </p>
+            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+              Bring it to the free consult — we will tell you honestly whether
+              we are the right fit, or point you somewhere that is.
+            </p>
+            <PillLink to="/contact" variant="ghost" class="mt-5" arrow>
+              Book a consult
+            </PillLink>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="bg-sage-800 px-6 py-20 text-center">
-      <div class="max-w-2xl mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-4">
-          Not Sure Where to Start?
-        </h2>
-        <p class="text-sage-200 text-lg mb-8">
-          Book a consultation and we'll help you find the right care.
-        </p>
-        <RouterLink
-          to="/contact"
-          class="inline-block bg-white text-sage-800 font-semibold px-8 py-3 rounded-full hover:bg-sage-100 transition"
+    <!-- ================= Care approach ================= -->
+    <section class="bg-shell px-6 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl">
+        <SectionHeading
+          eyebrow="How care works"
+          title="Three parts to"
+          accent=" your treatment."
+        />
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <BaseCard
+            v-for="(item, i) in careApproach"
+            :key="item.title"
+            v-reveal="i * 90"
+            tone="white"
+          >
+            <div
+              class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-sage-50 text-sage-700"
+            >
+              <AppIcon :name="item.icon" />
+            </div>
+            <h3 class="font-display text-2xl font-medium text-ink">
+              {{ item.title }}
+            </h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+              {{ item.desc }}
+            </p>
+          </BaseCard>
+        </div>
+
+        <div
+          v-reveal
+          class="mx-auto mt-12 max-w-3xl rounded-3xl border border-sand bg-linen p-7 text-center"
         >
-          Book an Appointment
-        </RouterLink>
+          <p class="text-sm leading-relaxed text-ink-soft">
+            <strong class="font-semibold text-ink">Fully virtual.</strong>
+            {{ practice.locationNote }}
+          </p>
+        </div>
       </div>
     </section>
+
+    <!-- ================= Process ================= -->
+    <section class="px-6 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl">
+        <SectionHeading
+          eyebrow="Getting started"
+          title="From first click to"
+          accent=" first session."
+        />
+
+        <ol class="relative grid gap-10 md:grid-cols-4 md:gap-6">
+          <div
+            class="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-sage-300 to-transparent md:block"
+            aria-hidden="true"
+          ></div>
+
+          <li
+            v-for="(step, i) in steps"
+            :key="step.title"
+            v-reveal="i * 100"
+            class="relative text-center md:text-left"
+          >
+            <div
+              class="relative z-10 mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-sage-200 bg-linen font-display text-2xl text-sage-700 shadow-soft md:mx-0"
+            >
+              {{ i + 1 }}
+            </div>
+            <h3 class="mt-5 font-display text-2xl font-medium text-ink">
+              {{ step.title }}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-soft">
+              {{ step.desc }}
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= Pricing ================= -->
+    <section
+      v-if="pricing.visible"
+      class="relative isolate overflow-hidden bg-shell px-6 py-20 md:py-28"
+    >
+      <BlobField palette="warm" class="opacity-40" />
+      <div class="relative mx-auto max-w-6xl">
+        <SectionHeading
+          eyebrow="Fees"
+          title="Clear pricing,"
+          accent=" from the start."
+          subtitle="The first conversation costs nothing. After that, you always know the rate before you book."
+        />
+        <PricingCards />
+      </div>
+    </section>
+
+    <CtaBanner
+      title="Start with fifteen free minutes."
+      text="No cost, no commitment — just a conversation about what is going on and what might help."
+      :note="practice.locationNote"
+    />
   </div>
 </template>
 
 <script setup>
-const services = [
-  {
-    icon: "💬",
-    title: "Psychiatric Evaluation",
-    desc: "A thorough assessment of your mental health history, symptoms, and goals to create a personalized care plan.",
-    points: [
-      "Comprehensive intake assessment",
-      "Diagnosis and treatment planning",
-      "Follow-up reviews",
-    ],
-  },
-  {
-    icon: "💊",
-    title: "Medication Management",
-    desc: "Careful prescribing and ongoing monitoring to ensure your medication is safe, effective, and right for you.",
-    points: [
-      "Initial prescription consultation",
-      "Regular monitoring and adjustments",
-      "Side effect management",
-    ],
-  },
-  {
-    icon: "🌿",
-    title: "Individual Therapy",
-    desc: "One-on-one sessions focused on helping you process emotions, develop coping skills, and achieve lasting well-being.",
-    points: [
-      "Cognitive Behavioral Therapy (CBT)",
-      "Trauma-informed care",
-      "Stress and anxiety management",
-    ],
-  },
-  {
-    icon: "👨‍👩‍👧",
-    title: "Family Therapy",
-    desc: "Guided sessions to help families navigate conflict, improve communication, and support one another.",
-    points: [
-      "Family dynamics assessment",
-      "Communication skill building",
-      "Conflict resolution strategies",
-    ],
-  },
-  {
-    icon: "🖥️",
-    title: "Telepsychiatry",
-    desc: "Receive the same quality of care from the comfort of your home via secure video consultations.",
-    points: [
-      "Secure virtual sessions",
-      "Flexible scheduling",
-      "Available nationwide",
-    ],
-  },
-  {
-    icon: "🧒",
-    title: "Child & Adolescent Psychiatry",
-    desc: "Specialized care for young minds navigating developmental, emotional, and behavioral challenges.",
-    points: [
-      "ADHD evaluation and treatment",
-      "Anxiety and depression in youth",
-      "Parent guidance sessions",
-    ],
-  },
-];
-
-const steps = [
-  { title: "Book", desc: "Schedule your first appointment online in minutes." },
-  {
-    title: "Consult",
-    desc: "Meet your psychiatrist for an initial evaluation.",
-  },
-  { title: "Plan", desc: "Receive a personalized care plan built around you." },
-  { title: "Heal", desc: "Begin your journey with ongoing support and care." },
-];
+import AppIcon from "../components/AppIcon.vue";
+import BaseCard from "../components/BaseCard.vue";
+import BlobField from "../components/BlobField.vue";
+import CtaBanner from "../components/CtaBanner.vue";
+import PageHeader from "../components/PageHeader.vue";
+import PillLink from "../components/PillLink.vue";
+import PricingCards from "../components/PricingCards.vue";
+import SectionHeading from "../components/SectionHeading.vue";
+import {
+  conditions,
+  careApproach,
+  steps,
+  pricing,
+  practice,
+} from "../data/site.js";
 </script>

@@ -1,141 +1,267 @@
 <template>
   <div>
-    <!-- Page Header -->
-    <section class="bg-sage-800 px-6 py-20 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Contact Us</h1>
-      <p class="text-sage-200 text-lg max-w-xl mx-auto">
-        Reach out or book an appointment — we're here for you.
-      </p>
-    </section>
+    <PageHeader
+      eyebrow="Contact"
+      title="Let's start with"
+      accent=" a conversation."
+      subtitle="Book a free 15-minute consultation, or leave your details and we'll reach out."
+    />
 
-    <!-- Contact + Form -->
-    <section class="bg-cream px-6 py-20">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
-        <!-- Left: Info + Calendly -->
+    <section class="relative isolate overflow-hidden px-6 py-20 md:py-28">
+      <BlobField palette="mixed" class="opacity-40" />
+
+      <div
+        class="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:gap-16"
+      >
+        <!-- ============ Left: scheduler + details ============ -->
         <div>
-          <h2 class="text-2xl font-bold text-sage-900 mb-6">
-            Book an Appointment
-          </h2>
-          <p class="text-sage-700 mb-8 leading-relaxed">
-            Use the scheduler below to pick a time that works for you. All
-            appointments are confidential and can be held in-person or
-            virtually.
-          </p>
+          <SectionHeading
+            eyebrow="Book online"
+            title="Pick a time that"
+            accent=" suits you."
+            align="left"
+            spacing="mb-8"
+            class="max-w-none"
+          />
 
-          <!-- Calendly Embed -->
           <div
-            class="rounded-2xl overflow-hidden border border-sage-200 bg-white"
+            v-reveal
+            class="mb-8 rounded-2xl border border-sage-200 bg-sage-50/70 px-5 py-4"
           >
-            <iframe
-              src="https://calendly.com/blissmind/consultation"
-              width="100%"
-              height="500"
-              frameborder="0"
-            ></iframe>
+            <p class="text-sm leading-relaxed text-ink-soft">
+              <strong class="font-semibold text-ink">
+                Your first appointment is free.
+              </strong>
+              Fifteen minutes to talk through what's going on and agree whether
+              and how often we'd meet.
+            </p>
           </div>
 
-          <!-- Contact Details -->
-          <div class="mt-10 space-y-4 text-sm text-sage-700">
-            <div class="flex items-center gap-3">
-              <span class="text-xl">📧</span>
-              <span>hello@blissmind.com</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-xl">📞</span>
-              <span>+1 (555) 000-0000</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-xl">📍</span>
-              <span>123 Wellness Avenue, Suite 4</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-xl">🕐</span>
-              <span>Mon – Fri: 8am – 6pm</span>
-            </div>
+          <!-- Scheduler (see `booking` in src/data/site.js) -->
+          <div v-reveal="80">
+            <BookingPanel />
           </div>
+
+          <!-- Details -->
+          <ul v-reveal="140" class="mt-10 space-y-4">
+            <li
+              v-for="item in details"
+              :key="item.label"
+              class="flex items-start gap-4 rounded-2xl border border-sage-100 bg-white/60 px-5 py-4"
+            >
+              <span
+                class="mt-0.5 flex h-9 w-9 items-center justify-center rounded-full bg-sage-50 text-sage-700"
+              >
+                <AppIcon :name="item.icon" size="sm" />
+              </span>
+              <span>
+                <span
+                  class="block text-[0.6rem] font-bold uppercase tracking-[0.18em] text-sage-600"
+                >
+                  {{ item.label }}
+                </span>
+                <a
+                  v-if="item.href"
+                  :href="item.href"
+                  class="link-underline text-sm font-medium text-ink"
+                >
+                  {{ item.value }}
+                </a>
+                <span v-else class="text-sm font-medium text-ink">
+                  {{ item.value }}
+                </span>
+              </span>
+            </li>
+          </ul>
         </div>
 
-        <!-- Right: Contact Form -->
+        <!-- ============ Right: callback form ============ -->
         <div>
-          <h2 class="text-2xl font-bold text-sage-900 mb-6">
-            Send Us a Message
-          </h2>
-          <p class="text-sage-700 mb-8 leading-relaxed">
-            Have a question or not ready to book yet? Fill out the form and
-            we'll get back to you within 24 hours.
+          <SectionHeading
+            eyebrow="Or request a callback"
+            title="Tell us how to"
+            accent=" reach you."
+            align="left"
+            spacing="mb-6"
+            class="max-w-none"
+          />
+
+          <p v-reveal class="mb-6 text-sm leading-relaxed text-ink-soft">
+            Not ready to book? Leave your details and we'll follow up within one
+            business day.
           </p>
 
+          <!-- This form is not a secure channel for health information. -->
+          <div
+            v-reveal="60"
+            class="mb-8 rounded-2xl border border-clay-200 bg-clay-50 px-5 py-4"
+          >
+            <p class="text-sm leading-relaxed text-ink-soft">
+              <strong class="font-semibold text-clay-600">
+                Please don't share medical details here.
+              </strong>
+              This form isn't a secure channel for health information. Keep it
+              to your contact details — anything clinical we'll discuss with you
+              directly, in private.
+            </p>
+          </div>
+
           <form
+            v-reveal="120"
             name="contact"
             method="POST"
             data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            class="glass space-y-5 rounded-3xl p-7 md:p-8"
             @submit.prevent="handleSubmit"
-            class="space-y-5"
           >
             <input type="hidden" name="form-name" value="contact" />
+            <p class="hidden">
+              <label>
+                Leave this field empty:
+                <input v-model="botField" name="bot-field" tabindex="-1" />
+              </label>
+            </p>
 
             <div>
-              <label class="block text-sm font-medium text-sage-900 mb-1"
-                >Full Name</label
-              >
+              <label :for="'name'" :class="labelClass">Full name</label>
               <input
+                id="name"
                 v-model="form.name"
                 type="text"
                 name="name"
                 required
+                autocomplete="name"
                 placeholder="Jane Doe"
-                class="w-full border border-sage-200 rounded-xl px-4 py-3 text-sm text-sage-900 bg-white focus:outline-none focus:ring-2 focus:ring-sage-400"
+                :class="fieldClass"
               />
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-sage-900 mb-1"
-                >Email Address</label
-              >
+              <label for="email" :class="labelClass">Email address</label>
               <input
+                id="email"
                 v-model="form.email"
                 type="email"
                 name="email"
                 required
+                autocomplete="email"
                 placeholder="jane@example.com"
-                class="w-full border border-sage-200 rounded-xl px-4 py-3 text-sm text-sage-900 bg-white focus:outline-none focus:ring-2 focus:ring-sage-400"
+                :class="fieldClass"
               />
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-sage-900 mb-1"
-                >Subject</label
-              >
+              <label for="phone" :class="labelClass">
+                Phone number
+                <span class="font-normal text-ink-muted">(optional)</span>
+              </label>
               <input
-                v-model="form.subject"
-                type="text"
-                name="subject"
-                placeholder="How can we help?"
-                class="w-full border border-sage-200 rounded-xl px-4 py-3 text-sm text-sage-900 bg-white focus:outline-none focus:ring-2 focus:ring-sage-400"
+                id="phone"
+                v-model="form.phone"
+                type="tel"
+                name="phone"
+                autocomplete="tel"
+                placeholder="(555) 123-4567"
+                :class="fieldClass"
               />
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-sage-900 mb-1"
-                >Message</label
+              <label for="reason" :class="labelClass"
+                >What can we help with?</label
               >
-              <textarea
-                v-model="form.message"
-                name="message"
+              <select
+                id="reason"
+                v-model="form.reason"
+                name="reason"
                 required
-                rows="5"
-                placeholder="Tell us a little about what you're looking for..."
-                class="w-full border border-sage-200 rounded-xl px-4 py-3 text-sm text-sage-900 bg-white focus:outline-none focus:ring-2 focus:ring-sage-400 resize-none"
-              ></textarea>
+                :class="fieldClass"
+              >
+                <option v-for="r in reasons" :key="r" :value="r">
+                  {{ r }}
+                </option>
+              </select>
             </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="preferredContact" :class="labelClass"
+                  >Reach me by</label
+                >
+                <select
+                  id="preferredContact"
+                  v-model="form.preferredContact"
+                  name="preferredContact"
+                  :class="fieldClass"
+                >
+                  <option v-for="m in contactMethods" :key="m" :value="m">
+                    {{ m }}
+                  </option>
+                </select>
+              </div>
+              <div>
+                <label for="bestTime" :class="labelClass">Best time</label>
+                <select
+                  id="bestTime"
+                  v-model="form.bestTime"
+                  name="bestTime"
+                  :class="fieldClass"
+                >
+                  <option v-for="t in times" :key="t" :value="t">
+                    {{ t }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <Transition
+              enter-active-class="transition-all duration-300"
+              enter-from-class="opacity-0 -translate-y-1"
+            >
+              <p
+                v-if="status === 'success'"
+                role="status"
+                class="rounded-2xl bg-sage-100 px-4 py-3 text-sm text-sage-800"
+              >
+                Thanks — we've got your details. We'll reach out within one
+                business day.
+              </p>
+              <p
+                v-else-if="status === 'error'"
+                role="alert"
+                class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800"
+              >
+                Something went wrong sending your request. Please try again, or
+                call
+                <a :href="`tel:${phoneHref}`" class="underline">
+                  {{ contact.phone }}
+                </a>
+                .
+              </p>
+            </Transition>
 
             <button
               type="submit"
-              class="w-full bg-sage-700 text-white font-medium py-3 rounded-full hover:bg-sage-800 transition"
+              :disabled="status === 'sending'"
+              class="group w-full rounded-full bg-sage-800 py-4 text-sm font-semibold text-linen shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-sage-900 hover:shadow-lift disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
             >
-              {{ submitted ? "Message Sent ✓" : "Send Message" }}
+              {{ buttonLabel }}
             </button>
           </form>
+
+          <!-- Crisis notice -->
+          <div
+            v-reveal
+            class="mt-6 rounded-2xl border border-clay-300/50 bg-white/60 px-5 py-4"
+          >
+            <p class="text-xs leading-relaxed text-ink-soft">
+              <strong class="font-semibold text-clay-600">{{
+                crisis.note
+              }}</strong>
+              {{ crisis.line }}
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -143,28 +269,113 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import AppIcon from "../components/AppIcon.vue";
+import BookingPanel from "../components/BookingPanel.vue";
+import BlobField from "../components/BlobField.vue";
+import PageHeader from "../components/PageHeader.vue";
+import SectionHeading from "../components/SectionHeading.vue";
+import { contact, practice, crisis } from "../data/site.js";
 
-const submitted = ref(false);
+const labelClass = "mb-1.5 block text-sm font-medium text-ink";
+const fieldClass =
+  "w-full rounded-2xl border border-sage-200 bg-white/80 px-4 py-3 text-sm text-ink " +
+  "transition-colors placeholder:text-ink-muted focus:border-sage-400 focus:outline-none " +
+  "focus:ring-2 focus:ring-sage-300";
 
-const form = ref({
+// Structured options only — this form deliberately has no free-text field, so
+// patients are not invited to disclose health information through it.
+const reasons = [
+  "Booking a new appointment",
+  "Question about fees",
+  "Existing patient — admin question",
+  "Something else",
+];
+const contactMethods = ["Email", "Phone"];
+const times = ["Any time", "Morning", "Afternoon", "Evening"];
+
+const phoneHref = computed(() => contact.phone.replace(/[^+\d]/g, ""));
+
+const details = computed(() => [
+  {
+    icon: "mail",
+    label: "Email",
+    value: contact.email,
+    href: `mailto:${contact.email}`,
+  },
+  {
+    icon: "phone",
+    label: "Phone",
+    value: contact.phone,
+    href: `tel:${phoneHref.value}`,
+  },
+  { icon: "clock", label: "Hours", value: contact.hours, href: "" },
+  {
+    icon: "monitor",
+    label: "Where",
+    value: `${practice.modality} · ${practice.state}, USA`,
+    href: "",
+  },
+]);
+
+// "idle" | "sending" | "success" | "error"
+const status = ref("idle");
+const botField = ref("");
+
+const emptyForm = () => ({
   name: "",
   email: "",
-  subject: "",
-  message: "",
+  phone: "",
+  reason: reasons[0],
+  preferredContact: contactMethods[0],
+  bestTime: times[0],
+});
+
+const form = ref(emptyForm());
+
+const buttonLabel = computed(() => {
+  if (status.value === "sending") return "Sending…";
+  if (status.value === "success") return "Request sent";
+  return "Request a callback";
 });
 
 const handleSubmit = async () => {
-  const data = new FormData();
-  data.append("form-name", "contact");
-  data.append("name", form.value.name);
-  data.append("email", form.value.email);
-  data.append("subject", form.value.subject);
-  data.append("message", form.value.message);
+  if (status.value === "sending") return;
+  status.value = "sending";
 
-  await fetch("/", { method: "POST", body: data });
+  const data = new URLSearchParams({
+    "form-name": "contact",
+    "bot-field": botField.value,
+    ...form.value,
+  });
 
-  submitted.value = true;
-  form.value = { name: "", email: "", subject: "", message: "" };
+  // Netlify Forms only exists on Netlify. The dev server has no POST handler
+  // for "/", so a real submit here would always 404. Log it instead so the
+  // success state can still be exercised locally. Vite compiles this branch
+  // out of the production bundle.
+  if (import.meta.env.DEV) {
+    console.info(
+      "[dev] form not sent — submissions only work once deployed:",
+      Object.fromEntries(data),
+    );
+    status.value = "success";
+    form.value = emptyForm();
+    return;
+  }
+
+  try {
+    const res = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: data.toString(),
+    });
+    if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+
+    status.value = "success";
+    form.value = emptyForm();
+  } catch (err) {
+    console.error(err);
+    status.value = "error";
+  }
 };
 </script>
