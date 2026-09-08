@@ -41,7 +41,9 @@ export const practice = {
 export const contact = {
   email: "blissmindss@gmail.com",
   phone: "+1 (555) 000-0000", // TODO: real number
-  hours: "Mon – Fri: 8am – 6pm CT", // TODO: confirm real hours
+  // Exact times vary by day, so the booking calendar is the source of truth
+  // rather than a fixed range here that would drift out of date.
+  hours: "Mon – Fri, by appointment",
 };
 
 // Online booking.
