@@ -1,17 +1,33 @@
 <template>
   <!-- Scheduler embedded inline -->
-  <div
-    v-if="state === 'embed'"
-    class="overflow-hidden rounded-3xl border border-sage-200 bg-white shadow-soft"
-  >
-    <iframe
-      :src="booking.url"
-      title="Appointment scheduling calendar"
-      width="100%"
-      height="620"
-      loading="lazy"
-      style="border: 0"
-    ></iframe>
+  <div v-if="state === 'embed'">
+    <div
+      class="overflow-hidden rounded-3xl border border-sage-200 bg-white shadow-soft"
+    >
+      <iframe
+        :src="booking.url"
+        title="Appointment scheduling calendar"
+        width="100%"
+        height="620"
+        loading="lazy"
+        style="border: 0"
+      ></iframe>
+    </div>
+    <!--
+      Some schedulers refuse to be framed, which would leave a blank box with
+      no way forward. This escape hatch always works.
+    -->
+    <p class="mt-3 text-center text-xs text-ink-muted">
+      Calendar not loading?
+      <a
+        :href="openUrl"
+        target="_blank"
+        rel="noopener"
+        class="link-underline font-semibold text-sage-700"
+      >
+        Open the booking page in a new tab
+      </a>
+    </p>
   </div>
 
   <!-- Scheduler opened in a new tab -->
@@ -28,11 +44,11 @@
       See available times
     </h3>
     <p class="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
-      Pick any open slot that suits you. You'll get an email confirmation with
+      Pick any open slot that suits you. You’ll get an email confirmation with
       your video link.
     </p>
     <PillLink
-      :href="booking.url"
+      :href="openUrl"
       target="_blank"
       rel="noopener"
       class="mt-6"
@@ -58,7 +74,7 @@
     </h3>
     <p class="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
       In the meantime, request a callback using the form, or reach out directly
-      and we'll find a time that works.
+      and we’ll find a time that works.
     </p>
     <div
       class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row"
@@ -87,4 +103,7 @@ const state = computed(() => {
 });
 
 const phoneHref = computed(() => contact.phone.replace(/[^+\d]/g, ""));
+
+// The pretty short link is preferred anywhere the page opens in a new tab.
+const openUrl = computed(() => booking.shareUrl || booking.url);
 </script>

@@ -57,8 +57,32 @@ export const contact = {
 // so the site never renders a broken scheduler.
 export const booking = {
   mode: "embed",
-  url: "", // TODO: paste the booking page URL once the scheduler is set up
-  providerName: "", // optional label, e.g. "Google Calendar"
+  // Google Calendar appointment schedule. `url` is the long form plus
+  // ?gv=true, which is the variant Google serves for embedding — the short
+  // calendar.app.google link sends X-Frame-Options: SAMEORIGIN and is blocked
+  // inside an iframe. `shareUrl` is the pretty short link, used wherever the
+  // booking page is opened in a new tab.
+  url: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2xqLJXMl0DoHHcrwcbh2web4sTSnKUtghl_YbsAwYKmZwiHO5l2QWUKuD48IOPK-FcIx4ktTaw?gv=true",
+  shareUrl: "https://calendar.app.google/XrUzxRGdAhSqmqQ16",
+  providerName: "Google Calendar",
+};
+
+// The free consultation, described once.
+//
+// Keep this in sync with the Description field on the Google Calendar
+// appointment schedule — patients read both, and mismatched expectations
+// between the booking page and the site look careless.
+export const consult = {
+  headline: "Your first appointment is free.",
+  duration: "15 minutes",
+  summary:
+    "A short, no-pressure conversation to talk through what’s going on, answer your questions, and decide together whether Bliss Mind is the right fit — and if so, how often we’d meet. There’s no cost and no obligation.",
+  points: [
+    "We meet by Google Meet — your link will be in the confirmation email.",
+    "You’ll need to be physically located in Kansas at the time of the call.",
+    "Please don’t include medical details when booking. We’ll cover all of that in the conversation, privately.",
+    "This consultation is not a clinical evaluation or treatment.",
+  ],
 };
 
 export const navLinks = [

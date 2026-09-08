@@ -29,7 +29,7 @@
       </h1>
 
       <p v-reveal="120" class="mt-6 text-base leading-relaxed text-ink-soft">
-        The link may be out of date, or the page may have moved. Let's get you
+        The link may be out of date, or the page may have moved. Let’s get you
         back to somewhere useful.
       </p>
 

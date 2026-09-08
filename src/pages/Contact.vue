@@ -2,9 +2,9 @@
   <div>
     <PageHeader
       eyebrow="Contact"
-      title="Let's start with"
+      title="Let’s start with"
       accent=" a conversation."
-      subtitle="Book a free 15-minute consultation, or leave your details and we'll reach out."
+      subtitle="Book a free 15-minute consultation, or leave your details and we’ll reach out."
     />
 
     <section class="relative isolate overflow-hidden px-6 py-16 md:py-28">
@@ -26,15 +26,38 @@
 
           <div
             v-reveal
-            class="mb-8 rounded-2xl border border-sage-200 bg-sage-50/70 px-5 py-4"
+            class="mb-8 rounded-3xl border border-sage-200 bg-sage-50/70 p-6"
           >
-            <p class="text-sm leading-relaxed text-ink-soft">
-              <strong class="font-semibold text-ink">
-                Your first appointment is free.
+            <p class="flex flex-wrap items-baseline gap-x-2">
+              <strong class="font-display text-2xl font-medium text-ink">
+                {{ consult.headline }}
               </strong>
-              Fifteen minutes to talk through what's going on and agree whether
-              and how often we'd meet.
+              <span
+                class="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-sage-600"
+              >
+                {{ consult.duration }}
+              </span>
             </p>
+
+            <p class="mt-3 text-sm leading-relaxed text-ink-soft">
+              {{ consult.summary }}
+            </p>
+
+            <ul class="mt-5 space-y-2.5">
+              <li
+                v-for="point in consult.points"
+                :key="point"
+                class="flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft"
+              >
+                <AppIcon
+                  name="check"
+                  size="sm"
+                  class="mt-0.5 text-sage-600"
+                  :stroke-width="2"
+                />
+                {{ point }}
+              </li>
+            </ul>
           </div>
 
           <!-- Scheduler (see `booking` in src/data/site.js) -->
@@ -87,7 +110,7 @@
           />
 
           <p v-reveal class="mb-6 text-sm leading-relaxed text-ink-soft">
-            Not ready to book? Leave your details and we'll follow up within one
+            Not ready to book? Leave your details and we’ll follow up within one
             business day.
           </p>
 
@@ -98,10 +121,10 @@
           >
             <p class="text-sm leading-relaxed text-ink-soft">
               <strong class="font-semibold text-clay-600">
-                Please don't share medical details here.
+                Please don’t share medical details here.
               </strong>
-              This form isn't a secure channel for health information. Keep it
-              to your contact details — anything clinical we'll discuss with you
+              This form isn’t a secure channel for health information. Keep it
+              to your contact details — anything clinical we’ll discuss with you
               directly, in private.
             </p>
           </div>
@@ -224,7 +247,7 @@
                 role="status"
                 class="rounded-2xl bg-sage-100 px-4 py-3 text-sm text-sage-800"
               >
-                Thanks — we've got your details. We'll reach out within one
+                Thanks — we’ve got your details. We’ll reach out within one
                 business day.
               </p>
               <p
@@ -275,7 +298,7 @@ import BookingPanel from "../components/BookingPanel.vue";
 import BlobField from "../components/BlobField.vue";
 import PageHeader from "../components/PageHeader.vue";
 import SectionHeading from "../components/SectionHeading.vue";
-import { contact, practice, crisis } from "../data/site.js";
+import { contact, consult, practice, crisis } from "../data/site.js";
 
 const labelClass = "mb-1.5 block text-sm font-medium text-ink";
 const fieldClass =

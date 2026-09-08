@@ -131,7 +131,7 @@
       <div class="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="What we treat"
-          title="Support for what you're"
+          title="Support for what you’re"
           accent=" actually carrying."
           subtitle="Care for the concerns that bring most people to a psychiatric practice — and a free consult if you are not sure where yours fits."
         />
@@ -172,8 +172,8 @@
               </div>
               <h3 class="font-display text-2xl font-medium">Not sure?</h3>
               <p class="mt-2.5 text-sm leading-relaxed text-sage-200">
-                You don't need a diagnosis to reach out. Book the free consult
-                and we'll work out where to start together.
+                You don’t need a diagnosis to reach out. Book the free consult
+                and we’ll work out where to start together.
               </p>
             </div>
             <span
@@ -343,8 +343,8 @@
     </section>
 
     <CtaBanner
-      title="You don't have to work it out alone."
-      text="Fifteen minutes, no cost, no pressure. Just a conversation about what's going on and what might help."
+      title="You don’t have to work it out alone."
+      text="Fifteen minutes, no cost, no pressure. Just a conversation about what’s going on and what might help."
       label="Book your free consult"
       secondary-label="See what we treat"
       secondary-to="/services"
