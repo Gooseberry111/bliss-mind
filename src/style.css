@@ -13,7 +13,7 @@
   --color-sage-300: #adc2a3;
   --color-sage-400: #8fae86;
   --color-sage-500: #6f9166;
-  --color-sage-600: #567551;
+  --color-sage-600: #516e4c;
   --color-sage-700: #3f5b3d;
   --color-sage-800: #2b4230;
   --color-sage-900: #1c3327;
@@ -21,7 +21,7 @@
   /* ---- Ink: text colors, warmer than pure gray ---- */
   --color-ink: #1c3327;
   --color-ink-soft: #4a5f52;
-  --color-ink-muted: #77877c;
+  --color-ink-muted: #5d6e60;
 
   /* ---- Clay: the warm counterweight to the sage ---- */
   --color-clay-50: #fdf5ef;
@@ -31,6 +31,7 @@
   --color-clay-400: #d18e65;
   --color-clay-500: #b9714a;
   --color-clay-600: #9a5a39;
+  --color-clay-700: #8a4f31;
 
   /* ---- Lilac: used sparingly, mostly in gradient washes ---- */
   --color-lilac-100: #efecf6;

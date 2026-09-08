@@ -127,7 +127,7 @@
     </section>
 
     <!-- ================= Conditions ================= -->
-    <section class="relative px-6 py-20 md:py-28">
+    <section class="relative px-6 py-16 md:py-28">
       <div class="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="What we treat"
@@ -136,7 +136,7 @@
           subtitle="Care for the concerns that bring most people to a psychiatric practice — and a free consult if you are not sure where yours fits."
         />
 
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">
           <BaseCard
             v-for="(condition, i) in conditions"
             :key="condition.name"
@@ -144,14 +144,16 @@
             tone="white"
           >
             <div
-              class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-sage-50 text-sage-700"
+              class="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-sage-50 text-sage-700 md:mb-5 md:h-12 md:w-12"
             >
               <AppIcon :name="condition.icon" />
             </div>
-            <h3 class="font-display text-2xl font-medium text-ink">
+            <h3 class="font-display text-xl font-medium text-ink md:text-2xl">
               {{ condition.name }}
             </h3>
-            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+            <p
+              class="mt-2 text-[0.8rem] leading-relaxed text-ink-soft md:mt-2.5 md:text-sm"
+            >
               {{ condition.desc }}
             </p>
           </BaseCard>
@@ -164,7 +166,7 @@
           >
             <div>
               <div
-                class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-clay-200"
+                class="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-clay-200 md:mb-5 md:h-12 md:w-12"
               >
                 <AppIcon name="spark" />
               </div>
@@ -196,7 +198,7 @@
 
     <!-- ================= Meet the provider ================= -->
     <section
-      class="relative isolate overflow-hidden bg-shell px-6 py-20 md:py-28"
+      class="relative isolate overflow-hidden bg-shell px-6 py-16 md:py-28"
     >
       <div class="mx-auto grid max-w-5xl items-center gap-14 md:grid-cols-2">
         <div v-reveal class="relative mx-auto w-full max-w-sm">
@@ -264,7 +266,7 @@
     </section>
 
     <!-- ================= How it works ================= -->
-    <section class="px-6 py-20 md:py-28">
+    <section class="px-6 py-16 md:py-28">
       <div class="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="How it works"
@@ -305,7 +307,7 @@
     <!-- ================= Pricing ================= -->
     <section
       v-if="pricing.visible"
-      class="relative isolate overflow-hidden px-6 py-20 md:py-28"
+      class="relative isolate overflow-hidden px-6 py-16 md:py-28"
     >
       <BlobField palette="warm" class="opacity-50" />
       <div class="relative mx-auto max-w-6xl">
@@ -320,7 +322,7 @@
     </section>
 
     <!-- ================= FAQ ================= -->
-    <section class="bg-shell px-6 py-20 md:py-28">
+    <section class="bg-shell px-6 py-16 md:py-28">
       <div class="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Questions"
@@ -332,7 +334,7 @@
           Still wondering about something?
           <RouterLink
             to="/contact"
-            class="link-underline font-semibold text-sage-700"
+            class="link-underline inline-block py-2 font-semibold text-sage-700"
           >
             Ask us directly
           </RouterLink>

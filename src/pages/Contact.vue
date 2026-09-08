@@ -7,7 +7,7 @@
       subtitle="Book a free 15-minute consultation, or leave your details and we'll reach out."
     />
 
-    <section class="relative isolate overflow-hidden px-6 py-20 md:py-28">
+    <section class="relative isolate overflow-hidden px-6 py-16 md:py-28">
       <BlobField palette="mixed" class="opacity-40" />
 
       <div
@@ -63,7 +63,7 @@
                 <a
                   v-if="item.href"
                   :href="item.href"
-                  class="link-underline text-sm font-medium text-ink"
+                  class="link-underline inline-block py-1.5 text-sm font-medium text-ink"
                 >
                   {{ item.value }}
                 </a>

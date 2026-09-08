@@ -35,11 +35,11 @@
           >
             Explore
           </h2>
-          <ul class="mt-5 space-y-3 text-sm">
+          <ul class="mt-3 space-y-0.5 text-sm">
             <li v-for="link in navLinks" :key="link.to">
               <RouterLink
                 :to="link.to"
-                class="link-underline text-sage-200 transition-colors hover:text-white"
+                class="link-underline inline-block py-2 text-sage-200 transition-colors hover:text-white"
               >
                 {{ link.label }}
               </RouterLink>
@@ -54,11 +54,11 @@
           >
             Get in touch
           </h2>
-          <ul class="mt-5 space-y-3 text-sm">
+          <ul class="mt-3 space-y-0.5 text-sm">
             <li>
               <a
                 :href="`mailto:${contact.email}`"
-                class="link-underline transition-colors hover:text-white"
+                class="link-underline inline-block py-2 transition-colors hover:text-white"
               >
                 {{ contact.email }}
               </a>
@@ -66,13 +66,13 @@
             <li>
               <a
                 :href="`tel:${phoneHref}`"
-                class="link-underline transition-colors hover:text-white"
+                class="link-underline inline-block py-2 transition-colors hover:text-white"
               >
                 {{ contact.phone }}
               </a>
             </li>
-            <li class="text-sage-300">{{ contact.hours }}</li>
-            <li class="text-sage-300">
+            <li class="py-2 text-sage-300">{{ contact.hours }}</li>
+            <li class="py-2 text-sage-300">
               {{ practice.modality }} · {{ practice.state }}, USA
             </li>
           </ul>

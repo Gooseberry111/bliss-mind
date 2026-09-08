@@ -55,7 +55,7 @@ const sizes = {
 const variants = {
   primary:
     "bg-sage-800 text-linen hover:bg-sage-900 shadow-soft hover:shadow-lift",
-  clay: "bg-clay-400 text-white hover:bg-clay-500 shadow-soft hover:shadow-lift",
+  clay: "bg-clay-600 text-white hover:bg-clay-700 shadow-soft hover:shadow-lift",
   outline:
     "border border-sage-300 text-sage-800 hover:border-sage-600 hover:bg-sage-50",
   // For use on the dark sage panels, where `outline` would be dark-on-dark.

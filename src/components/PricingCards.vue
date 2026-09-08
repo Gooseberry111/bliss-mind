@@ -14,7 +14,7 @@
       >
         <span
           v-if="plan.highlight"
-          class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-clay-400 px-4 py-1 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white"
+          class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-clay-600 px-4 py-1 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white"
         >
           Start here
         </span>

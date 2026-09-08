@@ -56,7 +56,7 @@ defineProps({
   eyebrow: { type: String, default: "" },
   align: { type: String, default: "center" },
   tone: { type: String, default: "dark" },
-  spacing: { type: String, default: "mb-14" },
+  spacing: { type: String, default: "mb-10 md:mb-14" },
   size: {
     type: String,
     default: "md",

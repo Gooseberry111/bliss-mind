@@ -8,7 +8,7 @@
     />
 
     <!-- ================= Conditions ================= -->
-    <section class="relative isolate overflow-hidden px-6 py-20 md:py-28">
+    <section class="relative isolate overflow-hidden px-6 py-16 md:py-28">
       <BlobField palette="cool" class="opacity-40" />
 
       <div class="relative mx-auto max-w-6xl">
@@ -19,7 +19,7 @@
           subtitle="If your concern is not listed, the free consultation is still the right place to start."
         />
 
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-3">
           <BaseCard
             v-for="(condition, i) in conditions"
             :key="condition.name"
@@ -27,14 +27,16 @@
             tone="glass"
           >
             <div
-              class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/70 text-sage-700"
+              class="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-white/70 text-sage-700 md:mb-5 md:h-12 md:w-12"
             >
               <AppIcon :name="condition.icon" />
             </div>
-            <h3 class="font-display text-2xl font-medium text-ink">
+            <h3 class="font-display text-xl font-medium text-ink md:text-2xl">
               {{ condition.name }}
             </h3>
-            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+            <p
+              class="mt-2 text-[0.8rem] leading-relaxed text-ink-soft md:mt-2.5 md:text-sm"
+            >
               {{ condition.desc }}
             </p>
           </BaseCard>
@@ -46,7 +48,9 @@
             <p class="font-display text-2xl font-medium text-ink">
               Something else?
             </p>
-            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+            <p
+              class="mt-2 text-[0.8rem] leading-relaxed text-ink-soft md:mt-2.5 md:text-sm"
+            >
               Bring it to the free consult — we will tell you honestly whether
               we are the right fit, or point you somewhere that is.
             </p>
@@ -59,7 +63,7 @@
     </section>
 
     <!-- ================= Care approach ================= -->
-    <section class="bg-shell px-6 py-20 md:py-28">
+    <section class="bg-shell px-6 py-16 md:py-28">
       <div class="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="How care works"
@@ -75,14 +79,16 @@
             tone="white"
           >
             <div
-              class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-sage-50 text-sage-700"
+              class="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-sage-50 text-sage-700 md:mb-5 md:h-12 md:w-12"
             >
               <AppIcon :name="item.icon" />
             </div>
-            <h3 class="font-display text-2xl font-medium text-ink">
+            <h3 class="font-display text-xl font-medium text-ink md:text-2xl">
               {{ item.title }}
             </h3>
-            <p class="mt-2.5 text-sm leading-relaxed text-ink-soft">
+            <p
+              class="mt-2 text-[0.8rem] leading-relaxed text-ink-soft md:mt-2.5 md:text-sm"
+            >
               {{ item.desc }}
             </p>
           </BaseCard>
@@ -101,7 +107,7 @@
     </section>
 
     <!-- ================= Process ================= -->
-    <section class="px-6 py-20 md:py-28">
+    <section class="px-6 py-16 md:py-28">
       <div class="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Getting started"
@@ -140,7 +146,7 @@
     <!-- ================= Pricing ================= -->
     <section
       v-if="pricing.visible"
-      class="relative isolate overflow-hidden bg-shell px-6 py-20 md:py-28"
+      class="relative isolate overflow-hidden bg-shell px-6 py-16 md:py-28"
     >
       <BlobField palette="warm" class="opacity-40" />
       <div class="relative mx-auto max-w-6xl">

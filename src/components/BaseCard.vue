@@ -23,7 +23,7 @@ defineProps({
   interactive: { type: Boolean, default: true },
 });
 
-const base = "rounded-3xl p-7 md:p-8 transition-all duration-500 ease-out";
+const base = "rounded-3xl p-5 md:p-8 transition-all duration-500 ease-out";
 
 const hover = "hover:-translate-y-1.5 hover:shadow-lift";
 
