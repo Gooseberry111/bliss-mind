@@ -48,31 +48,37 @@ export const contact = {
 
 // Online booking.
 //
-// The scheduler is whatever tool shows your free/busy times, lets someone pick
-// a slot, and emails both of you a video link — Google Calendar appointment
-// schedules, Calendly, SimplePractice, and so on. The video call itself
-// (Google Meet, Zoom) is created by that tool; the website only links to it.
+// Bookings are handled by a Google Apps Script web app backed by a Google
+// Sheet (see apps-script/Code.gs and docs/BOOKING-SETUP.md). The site asks it
+// which slots are free, then posts the booking to it; the script writes the
+// row and emails both the patient and Dr. Ukata.
 //
-// `mode`: "embed" puts the scheduler inline on the Contact page,
-//         "link"  shows a card with a button that opens it in a new tab.
-// Leave `url` empty and the page shows a "call or email us" fallback instead,
-// so the site never renders a broken scheduler.
+// Leave `apiUrl` empty and the Contact page shows a "booking coming soon"
+// card with the email and phone instead of a broken widget.
 export const booking = {
-  mode: "embed",
-  // Google Calendar appointment schedule. `url` is the long form plus
-  // ?gv=true, which is the variant Google serves for embedding — the short
-  // calendar.app.google link sends X-Frame-Options: SAMEORIGIN and is blocked
-  // inside an iframe. `shareUrl` is the pretty short link, used wherever the
-  // booking page is opened in a new tab.
-  url: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2xqLJXMl0DoHHcrwcbh2web4sTSnKUtghl_YbsAwYKmZwiHO5l2QWUKuD48IOPK-FcIx4ktTaw?gv=true",
-  shareUrl: "https://calendar.app.google/XrUzxRGdAhSqmqQ16",
-  providerName: "Google Calendar",
+  apiUrl: "", // TODO: paste the Apps Script /exec URL after deploying
+  // How many days of the calendar to offer at once.
+  daysVisible: 28,
+  timezoneLabel: "Central Time (CT)",
+  reasons: [
+    "New patient consultation",
+    "Question about fees",
+    "Existing patient — admin question",
+    "Something else",
+  ],
+  heardVia: [
+    "Google search",
+    "Social media",
+    "Referred by a friend or family member",
+    "Referred by another provider",
+    "Somewhere else",
+  ],
 };
 
 // The free consultation, described once.
 //
-// Keep this in sync with the Description field on the Google Calendar
-// appointment schedule — patients read both, and mismatched expectations
+// Keep this in sync with the Description field on the booking system and any
+// confirmation email copy — patients read both, and mismatched expectations
 // between the booking page and the site look careless.
 export const consult = {
   headline: "Your first appointment is free.",
@@ -80,7 +86,7 @@ export const consult = {
   summary:
     "A short, no-pressure conversation to talk through what’s going on, answer your questions, and decide together whether Bliss Mind is the right fit — and if so, how often we’d meet. There’s no cost and no obligation.",
   points: [
-    "We meet by Google Meet — your link will be in the confirmation email.",
+    "We meet by video — your link will be in the confirmation email.",
     "You’ll need to be physically located in Kansas at the time of the call.",
     "Please don’t include medical details when booking. We’ll cover all of that in the conversation, privately.",
     "This consultation is not a clinical evaluation or treatment.",

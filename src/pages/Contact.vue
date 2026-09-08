@@ -62,7 +62,7 @@
 
           <!-- Scheduler (see `booking` in src/data/site.js) -->
           <div v-reveal="80">
-            <BookingPanel />
+            <BookingWidget />
           </div>
 
           <!-- Details -->
@@ -294,7 +294,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import AppIcon from "../components/AppIcon.vue";
-import BookingPanel from "../components/BookingPanel.vue";
+import BookingWidget from "../components/BookingWidget.vue";
 import BlobField from "../components/BlobField.vue";
 import PageHeader from "../components/PageHeader.vue";
 import SectionHeading from "../components/SectionHeading.vue";

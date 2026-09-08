@@ -27,12 +27,16 @@ src/
   router/index.js     routes, lazy loading, scroll behavior, page metadata
   data/site.js        ALL shared content — see below
   directives/reveal.js  v-reveal scroll animation
-  components/         Navbar, Footer, ticker + UI primitives
+  components/         Navbar, Footer, ticker, booking widget + UI primitives
   pages/              Home, About, Services, Contact, NotFound
   assets/brand/       logo source + generated web assets
   style.css           Tailwind entry, design tokens, glass/motion utilities
 scripts/
   build-assets.mjs    logo -> transparent webp/png, favicon, OG card
+apps-script/
+  Code.gs             booking backend (paste into Google Apps Script)
+docs/
+  BOOKING-SETUP.md    step-by-step booking setup for a non-developer
 ```
 
 ## Content
@@ -76,18 +80,30 @@ logo is ever redrawn, replace the source and re-run that one command.
 
 ## Booking
 
-`booking` in `src/data/site.js` controls the scheduler:
+Bookings run on a Google Apps Script web app backed by a Google Sheet. The
+script is version-controlled here in `apps-script/Code.gs`; the Sheet is the
+database and the owner-editable control panel.
 
-- `url` — the public booking page from whichever scheduler you use (Google
-  Calendar appointment schedules, Calendly, SimplePractice, …). The scheduler
-  is what shows free/busy times and emails out the Google Meet or Zoom link;
-  the site only points at it.
-- `mode` — `"embed"` renders it inline on the Contact page, `"link"` shows a
-  card with a button that opens it in a new tab. `"link"` behaves better on
-  small screens and makes swapping providers a one-line change.
-- Leave `url` empty and the page shows a "booking coming soon" card with the
-  email and phone instead, so a missing or wrong URL can never render a broken
-  scheduler inside the site.
+**Full setup walkthrough: [docs/BOOKING-SETUP.md](docs/BOOKING-SETUP.md)** —
+written for someone who has never opened Apps Script.
+
+- `booking.apiUrl` in `src/data/site.js` is the deployed `/exec` URL. Leave it
+  empty and the Contact page shows a "booking coming soon" card instead of a
+  broken widget.
+- The Sheet has four tabs: **Bookings** (written by the script),
+  **Availability** (weekly hours), **Blackouts** (days off) and **Settings**.
+  Changing hours needs no code change or redeploy.
+- Every time in the system is **Central Time**, with no conversion anywhere.
+  Patients must be located in Kansas, so their local time is Central by
+  definition — this removes the whole class of timezone bug.
+- Slot booking happens under a `LockService` lock, so two people submitting at
+  once cannot take the same slot. The widget shows taken times struck through
+  rather than hiding them.
+- The site POSTs as `text/plain` because Apps Script cannot answer the CORS
+  preflight that `application/json` would trigger.
+
+After editing `Code.gs`, redeploy with **Deploy → Manage deployments → edit →
+New version** so the URL stays the same.
 
 ## Deployment (Netlify)
 
