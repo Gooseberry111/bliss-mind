@@ -164,42 +164,60 @@ async function main() {
   // --- Provider portrait -------------------------------------------------
   // Two crops from one source: a square centred on the face for circular
   // avatars, and a 4:5 portrait for the card on the home page.
+  //
+  // FACE is where her face sits in the source, as a fraction of width/height.
+  // If the photograph is ever replaced, this is the only value to re-measure.
   const portraitSrc = `${BRAND}/provider-source.jpg`;
+  const FACE = { x: 0.538, y: 0.313 };
+  // Top of her hair in the source. Crops are pinned so this is never clipped.
+  const HEAD_TOP = 0.16;
+  // Minimum share of the crop kept above the head.
+  const HEADROOM = 0.1;
+
   if (existsSync(portraitSrc)) {
     const pm = await sharp(portraitSrc).metadata();
+    const clamp = (v, max) => Math.max(0, Math.min(Math.round(v), max));
 
-    const side = Math.round(pm.width * 0.8);
+    // Square crop centred on the face, for circular avatars. The top edge is
+    // pulled up if centring alone would cut into her hair.
+    // 0.6 keeps her head at roughly 70% of the square, so the face still
+    // reads at the 128px the About card renders it at.
+    const side = Math.round(Math.min(pm.width * 0.6, pm.height));
+    const avatarTop = Math.min(
+      FACE.y * pm.height - side / 2,
+      HEAD_TOP * pm.height - side * HEADROOM,
+    );
     report(
       "provider avatar",
       `${BRAND}/provider-avatar.webp`,
       await sharp(portraitSrc)
         .extract({
-          left: Math.round(pm.width * 0.1),
-          top: Math.min(Math.round(pm.height * 0.33), pm.height - side),
+          left: clamp(FACE.x * pm.width - side / 2, pm.width - side),
+          top: clamp(avatarTop, pm.height - side),
           width: side,
           height: side,
         })
         .resize({ width: 640 })
-        .webp({ quality: 86 })
+        .webp({ quality: 88 })
         .toFile(`${BRAND}/provider-avatar.webp`),
     );
 
-    // Narrow in a little and anchor to the bottom, otherwise the 4:5 crop is
-    // mostly empty wall above her head.
-    const portraitWidth = Math.round(pm.width * 0.82);
-    const portraitHeight = Math.min(Math.round(portraitWidth / 0.8), pm.height);
+    // 4:5 portrait, cropped in so the face reads at card size. The bottom is
+    // sacrificed rather than the top: the head always stays whole.
+    const pw = Math.round(pm.width * 0.75);
+    const ph = Math.min(Math.round(pw / 0.8), pm.height);
     report(
       "provider portrait",
       `${BRAND}/provider-portrait.webp`,
       await sharp(portraitSrc)
         .extract({
-          left: Math.max(0, Math.round(pm.width * 0.464 - portraitWidth / 2)),
-          top: pm.height - portraitHeight,
-          width: portraitWidth,
-          height: portraitHeight,
+          left: clamp(FACE.x * pm.width - pw / 2, pm.width - pw),
+          top: clamp(HEAD_TOP * pm.height - ph * HEADROOM, pm.height - ph),
+          width: pw,
+          height: ph,
         })
         .resize({ width: 800 })
-        .webp({ quality: 86 })
+        .webp({ quality: 88 })
         .toFile(`${BRAND}/provider-portrait.webp`),
     );
   }
