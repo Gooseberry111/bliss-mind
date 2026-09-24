@@ -120,6 +120,18 @@
     will-change: transform;
   }
 
+  /* ---- Skeleton placeholder shown while an image loads ------------------ */
+  .skeleton {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-sage-100) 30%,
+      var(--color-linen) 50%,
+      var(--color-sage-100) 70%
+    );
+    background-size: 220% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+
   /* ---- Scroll reveal (see src/directives/reveal.js) --------------------- */
   .reveal {
     opacity: 0;
@@ -178,6 +190,15 @@
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 220% 0;
+  }
+  to {
+    background-position: -220% 0;
   }
 }
 
@@ -253,5 +274,10 @@
     animation: none;
     width: 100%;
     justify-content: center;
+  }
+
+  .skeleton {
+    background-image: none;
+    background-color: var(--color-sage-100);
   }
 }

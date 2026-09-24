@@ -1,20 +1,16 @@
 <template>
-  <img
+  <SmartImage
     :src="variant === 'avatar' ? avatarSrc : portraitSrc"
     :alt="`${provider.name}, ${provider.credentials}`"
     :width="variant === 'avatar' ? 640 : 800"
     :height="variant === 'avatar' ? 640 : 1000"
-    loading="lazy"
-    decoding="async"
-    :class="
-      variant === 'avatar'
-        ? 'rounded-full object-cover'
-        : 'h-full w-full object-cover'
-    "
+    :rounded="variant === 'avatar' ? 'rounded-full' : ''"
+    :class="variant === 'avatar' ? '' : 'h-full w-full'"
   />
 </template>
 
 <script setup>
+import SmartImage from "./SmartImage.vue";
 import avatarSrc from "../assets/brand/provider-avatar.webp";
 import portraitSrc from "../assets/brand/provider-portrait.webp";
 import { provider } from "../data/site.js";

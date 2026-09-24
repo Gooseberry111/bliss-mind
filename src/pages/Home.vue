@@ -88,13 +88,14 @@
         <div v-reveal="140" class="lg:col-span-5">
           <div class="relative mx-auto max-w-sm">
             <div class="glass rounded-[2.5rem] p-9 text-center">
-              <img
+              <SmartImage
                 :src="logoSrc"
                 :alt="`${site.name}. ${site.tagline}`"
-                width="900"
-                height="909"
-                fetchpriority="high"
-                decoding="async"
+                :width="900"
+                :height="909"
+                eager
+                rounded="rounded-2xl"
+                img-class="w-full"
                 class="animate-float-soft mx-auto w-full max-w-[16rem]"
               />
             </div>
@@ -340,6 +341,7 @@ import PillLink from "../components/PillLink.vue";
 import ProviderPortrait from "../components/ProviderPortrait.vue";
 import PricingCards from "../components/PricingCards.vue";
 import SectionHeading from "../components/SectionHeading.vue";
+import SmartImage from "../components/SmartImage.vue";
 import logoSrc from "../assets/brand/logo.webp";
 import {
   site,
