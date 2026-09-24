@@ -135,18 +135,6 @@
     transform: none;
   }
 
-  /* ---- Marquee / announcement ticker ----------------------------------- */
-  .ticker-track {
-    display: flex;
-    width: max-content;
-    animation: ticker-scroll 38s linear infinite;
-  }
-
-  .ticker:hover .ticker-track,
-  .ticker:focus-within .ticker-track {
-    animation-play-state: paused;
-  }
-
   /* ---- Underline that draws in on hover -------------------------------- */
   .link-underline {
     position: relative;
@@ -169,15 +157,6 @@
   .link-underline[aria-current="page"]::after {
     transform: scaleX(1);
     transform-origin: left;
-  }
-}
-
-@keyframes ticker-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
   }
 }
 
@@ -204,30 +183,12 @@
   }
 }
 
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.25);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 @utility animate-drift {
   animation: drift 22s ease-in-out infinite;
 }
 
 @utility animate-float-soft {
   animation: float-soft 7s ease-in-out infinite;
-}
-
-@utility animate-pulse-ring {
-  animation: pulse-ring 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Motion is decoration here — remove all of it when the user asks for less. */
@@ -247,11 +208,5 @@
   .reveal {
     opacity: 1;
     transform: none;
-  }
-
-  .ticker-track {
-    animation: none;
-    width: 100%;
-    justify-content: center;
   }
 }

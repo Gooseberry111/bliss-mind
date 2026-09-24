@@ -3,7 +3,7 @@
     :is="to ? 'RouterLink' : 'div'"
     :to="to"
     class="group inline-flex items-center gap-2.5"
-    :aria-label="to ? `${site.name} — home` : null"
+    :aria-label="to ? `${site.name} home` : null"
   >
     <span
       :class="[

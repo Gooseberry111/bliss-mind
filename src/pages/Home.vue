@@ -11,24 +11,9 @@
       >
         <!-- Copy -->
         <div class="lg:col-span-7">
-          <span
-            v-reveal
-            class="inline-flex items-center gap-2.5 rounded-full border border-sage-200/80 bg-white/60 px-4 py-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-sage-700 backdrop-blur"
-          >
-            <span class="relative flex h-2 w-2" aria-hidden="true">
-              <span
-                class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-clay-400"
-              ></span>
-              <span
-                class="relative inline-flex h-2 w-2 rounded-full bg-clay-400"
-              ></span>
-            </span>
-            Accepting new patients in {{ practice.state }}
-          </span>
-
           <h1
             v-reveal="80"
-            class="mt-7 font-display text-[2.75rem] font-medium leading-[1.05] text-ink sm:text-6xl lg:text-7xl"
+            class="font-display text-[2.75rem] font-medium leading-[1.05] text-ink sm:text-6xl lg:text-7xl"
           >
             A calmer mind starts with
             <em class="not-italic text-sage-500">being heard.</em>
@@ -40,8 +25,7 @@
           >
             Virtual psychiatric care across {{ practice.state }} with
             {{ provider.name }}, {{ provider.credentials }}. Start with a free
-            15-minute consultation — no cost, no commitment, just a
-            conversation.
+            15-minute consultation. No cost, no commitment, just a conversation.
           </p>
 
           <div
@@ -91,7 +75,7 @@
             <div class="glass rounded-[2.5rem] p-9 text-center">
               <img
                 :src="logoSrc"
-                :alt="`${site.name} — ${site.tagline}`"
+                :alt="`${site.name}. ${site.tagline}`"
                 width="900"
                 height="909"
                 fetchpriority="high"
@@ -133,7 +117,7 @@
           eyebrow="What we treat"
           title="Support for what you’re"
           accent=" actually carrying."
-          subtitle="Care for the concerns that bring most people to a psychiatric practice — and a free consult if you are not sure where yours fits."
+          subtitle="Care for the concerns that bring most people to a psychiatric practice, plus a free consult if you are not sure where yours fits."
         />
 
         <div class="grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">

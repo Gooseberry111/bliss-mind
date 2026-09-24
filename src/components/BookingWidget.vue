@@ -210,8 +210,8 @@
             :disabled="!slot.available"
             :aria-label="
               slot.available
-                ? `${slot.label} — available`
-                : `${slot.label} — not available`
+                ? `${slot.label}, available`
+                : `${slot.label}, not available`
             "
             :class="[
               'rounded-xl border px-2 py-3 text-sm font-medium transition-all duration-200',
@@ -494,7 +494,7 @@ async function submit() {
   submitError.value = "";
 
   try {
-    // text/plain keeps this a "simple" request — Apps Script cannot answer
+    // text/plain keeps this a "simple" request, because Apps Script cannot answer
     // the CORS preflight that application/json would trigger.
     const res = await fetch(api.url, {
       method: "POST",
@@ -512,7 +512,7 @@ async function submit() {
     if (!data.ok) {
       submitError.value =
         data.message || "Something went wrong. Please try another time.";
-      // Someone else took it — refresh so the grid reflects reality.
+      // Someone else took it, so refresh the grid to reflect reality.
       if (data.error === "SLOT_TAKEN") {
         selectedTime.value = "";
         await loadAvailability();

@@ -65,7 +65,7 @@
 
     <CtaBanner
       title="Questions about your privacy?"
-      text="Ask us directly — we would rather answer than have you wonder."
+      text="Ask us directly. We would rather answer than have you wonder."
       label="Get in touch"
       :note="practice.locationNote"
     />
@@ -85,7 +85,7 @@ const sections = [
   {
     heading: "What we collect",
     body: [
-      "Only what you choose to send us. If you fill in the callback form, we receive your name, email address, phone number if you give one, and the fixed options you select — what your enquiry is about, how you would like to be contacted, and the time of day that suits you.",
+      "Only what you choose to send us. If you fill in the callback form, we receive your name, email address, phone number if you give one, and the fixed options you select: what your enquiry is about, how you would like to be contacted, and the time of day that suits you.",
       "The form has no free-text box on purpose. It is not a secure channel for health information, so we do not invite you to put any there.",
     ],
   },
@@ -114,7 +114,7 @@ const sections = [
   {
     heading: "How long we keep it",
     body: [
-      "Enquiries are kept only as long as they are useful for responding to you and arranging care. Once you become a patient, your clinical record is governed by the separate Notice of Privacy Practices and by the record-keeping rules that apply to healthcare providers — not by this policy.",
+      "Enquiries are kept only as long as they are useful for responding to you and arranging care. Once you become a patient, your clinical record is governed by the separate Notice of Privacy Practices and by the record-keeping rules that apply to healthcare providers, not by this policy.",
     ],
   },
   {

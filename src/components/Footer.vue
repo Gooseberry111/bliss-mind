@@ -11,19 +11,15 @@
           <SiteLogo tone="light" tagline />
           <p class="mt-6 max-w-sm text-sm leading-relaxed text-sage-300">
             Virtual psychiatric care with {{ provider.name }},
-            {{ provider.credentials }} — for adults across {{ practice.state }}.
+            {{ provider.credentials }}, for adults across {{ practice.state }}.
           </p>
           <p
             class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium text-sage-200"
           >
-            <span class="relative flex h-2 w-2" aria-hidden="true">
-              <span
-                class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-clay-300"
-              ></span>
-              <span
-                class="relative inline-flex h-2 w-2 rounded-full bg-clay-400"
-              ></span>
-            </span>
+            <span
+              class="h-1.5 w-1.5 rounded-full bg-clay-400"
+              aria-hidden="true"
+            ></span>
             Accepting new patients
           </p>
         </div>
@@ -76,7 +72,7 @@
                 :href="s.url"
                 target="_blank"
                 rel="noopener"
-                :aria-label="`${s.name} — ${s.handle}`"
+                :aria-label="`${s.name}, ${s.handle}`"
                 :title="s.handle"
                 class="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-sage-200 transition-colors hover:bg-white/15 hover:text-white"
               >

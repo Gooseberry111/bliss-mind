@@ -4,7 +4,7 @@
       eyebrow="Services"
       title="Psychiatric care,"
       accent=" built around you."
-      subtitle="Evaluation, medication management and ongoing support — delivered virtually, at a pace that works for your life."
+      subtitle="Evaluation, medication management and ongoing support, delivered virtually at a pace that works for your life."
     />
 
     <!-- ================= Conditions ================= -->
@@ -51,8 +51,8 @@
             <p
               class="mt-2 text-[0.8rem] leading-relaxed text-ink-soft md:mt-2.5 md:text-sm"
             >
-              Bring it to the free consult — we will tell you honestly whether
-              we are the right fit, or point you somewhere that is.
+              Bring it to the free consult. We will tell you honestly whether we
+              are the right fit, or point you somewhere that is.
             </p>
             <PillLink to="/contact" variant="ghost" class="mt-5" arrow>
               Book a consult
@@ -162,7 +162,7 @@
 
     <CtaBanner
       title="Start with fifteen free minutes."
-      text="No cost, no commitment — just a conversation about what is going on and what might help."
+      text="No cost, no commitment. Just a conversation about what is going on and what might help."
       :note="practice.locationNote"
     />
   </div>

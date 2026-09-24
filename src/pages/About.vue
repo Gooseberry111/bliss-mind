@@ -4,7 +4,7 @@
       eyebrow="About"
       title="Care that starts with"
       accent=" listening."
-      :subtitle="`Bliss Mind is the practice of ${provider.name}, ${provider.credentials} — virtual psychiatric care for adults across ${practice.state}.`"
+      :subtitle="`Bliss Mind is the practice of ${provider.name}, ${provider.credentials}, providing virtual psychiatric care for adults across ${practice.state}.`"
     />
 
     <!-- ================= Provider ================= -->

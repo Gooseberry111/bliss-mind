@@ -7,7 +7,7 @@
       Skip to main content
     </a>
 
-    <AnnouncementTicker />
+    <AnnouncementBar />
     <Navbar />
 
     <main id="main" tabindex="-1" class="flex-1 outline-none">
@@ -32,7 +32,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useHead } from "@vueuse/head";
-import AnnouncementTicker from "./components/AnnouncementTicker.vue";
+import AnnouncementBar from "./components/AnnouncementBar.vue";
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
 import { site } from "./data/site.js";
@@ -42,8 +42,8 @@ const route = useRoute();
 // Titles and descriptions are declared once, in the route table.
 const title = computed(() =>
   route.meta.title
-    ? `${route.meta.title} — ${site.name}`
-    : `${site.name} — ${site.tagline}`,
+    ? `${route.meta.title} | ${site.name}`
+    : `${site.name} | ${site.tagline}`,
 );
 const description = computed(() => route.meta.description || site.description);
 const url = computed(() => site.url + route.path);

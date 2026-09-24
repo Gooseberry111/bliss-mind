@@ -19,7 +19,7 @@ export const provider = {
     "A psychiatric mental health nurse practitioner who believes good care starts with being genuinely heard.",
   bio: [
     "Dr. Jemimah Ukata is a Psychiatric Mental Health Nurse Practitioner providing virtual psychiatric care to adults across Kansas. Her practice is built on a simple idea: people do better when they feel heard before they feel treated.",
-    "She works with anxiety, depression, ADHD, PTSD, OCD, sleep difficulties and postpartum depression — combining careful evaluation, evidence-based treatment and medication management where it is appropriate, always at a pace that feels right for you.",
+    "She works with anxiety, depression, ADHD, PTSD, OCD, sleep difficulties and postpartum depression. Her approach combines careful evaluation, evidence-based treatment and medication management where it is appropriate, always at a pace that feels right for you.",
   ],
   // TODO: add further qualifications, license numbers and affiliations here.
   qualifications: [
@@ -31,7 +31,7 @@ export const provider = {
 export const practice = {
   state: "Kansas",
   modality: "Telehealth only",
-  // No physical address yet — the practice is fully virtual.
+  // No physical address yet; the practice is fully virtual.
   hasOfficeAddress: false,
   locationNote:
     "Bliss Mind is a fully virtual practice. Appointments are held by secure video, and you will need to be physically located in Kansas at the time of your appointment.",
@@ -42,7 +42,7 @@ export const contact = {
   // No dedicated practice line yet. Leaving this empty hides every phone
   // link on the site rather than showing a number nobody answers.
   phone: "",
-  hours: "Mon – Fri, by appointment",
+  hours: "Monday to Friday, by appointment",
 };
 
 export const socials = [
@@ -78,7 +78,7 @@ export const booking = {
   reasons: [
     "New patient consultation",
     "Question about fees",
-    "Existing patient — admin question",
+    "Existing patient: admin question",
     "Something else",
   ],
   heardVia: [
@@ -94,9 +94,9 @@ export const consult = {
   headline: "Your first appointment is free.",
   duration: "15 minutes",
   summary:
-    "A short, no-pressure conversation to talk through what’s going on, answer your questions, and decide together whether Bliss Mind is the right fit — and if so, how often we’d meet. There’s no cost and no obligation.",
+    "A short, no-pressure conversation to talk through what’s going on, answer your questions, and decide together whether Bliss Mind is the right fit. If it is, we’ll agree how often to meet. There’s no cost and no obligation.",
   points: [
-    "We meet by secure video — your link is sent by email beforehand.",
+    "We meet by secure video. Your link is sent by email beforehand.",
     "You’ll need to be physically located in Kansas at the time of the call.",
     "Please don’t include medical details when you get in touch. We’ll cover all of that in the conversation, privately.",
     "This consultation is not a clinical evaluation or treatment.",
@@ -110,13 +110,12 @@ export const navLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
-// Scrolling announcement bar. Keep these short and factual.
-export const announcements = [
-  "Now accepting new patients",
-  "Free 15-minute consultation",
-  "100% virtual care across Kansas",
-  "Secure video appointments",
-];
+// The slim bar above the header. One clear message, no motion.
+export const announcement = {
+  text: "Now accepting new patients in Kansas",
+  linkLabel: "Book a free 15-minute consultation",
+  to: "/contact",
+};
 
 export const conditions = [
   {
@@ -160,7 +159,7 @@ export const careApproach = [
   {
     icon: "chat",
     title: "Psychiatric Evaluation",
-    desc: "A careful, unhurried assessment of your history, symptoms and goals — the foundation of everything that follows.",
+    desc: "A careful, unhurried assessment of your history, symptoms and goals. Everything that follows is built on it.",
   },
   {
     icon: "pill",
@@ -243,7 +242,7 @@ export const faqs = [
   },
   {
     q: "Do you take insurance?",
-    a: "Bliss Mind is currently a self-pay practice. Sessions are $200 per hour, and the initial 15-minute consultation is free. If you are self-paying you are entitled to a Good Faith Estimate of your costs before you begin — just ask.",
+    a: "Bliss Mind is currently a self-pay practice. Sessions are $200 per hour, and the initial 15-minute consultation is free. If you are self-paying you are entitled to a Good Faith Estimate of your costs before you begin. Just ask.",
   },
   {
     q: "What do you treat?",
@@ -255,7 +254,7 @@ export const faqs = [
   },
   {
     q: "Is what I share confidential?",
-    a: "Yes. What you discuss in your appointments is confidential and protected. Please note the contact form on this site is not a secure channel — keep it to your contact details and we will discuss anything clinical with you directly.",
+    a: "Yes. What you discuss in your appointments is confidential and protected. Please note the contact form on this site is not a secure channel, so keep it to your contact details. We will discuss anything clinical with you directly.",
   },
 ];
 

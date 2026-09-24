@@ -109,7 +109,7 @@
                   :href="s.url"
                   target="_blank"
                   rel="noopener"
-                  :aria-label="`${s.name} — ${s.handle}`"
+                  :aria-label="`${s.name}, ${s.handle}`"
                   class="flex items-center gap-2.5 rounded-full border border-sage-200 bg-white/60 px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-sage-400 hover:bg-white"
                 >
                   <AppIcon :name="s.icon" size="sm" class="text-sage-700" />
@@ -146,7 +146,7 @@
                 Please don’t share medical details here.
               </strong>
               This form isn’t a secure channel for health information. Keep it
-              to your contact details — anything clinical we’ll discuss with you
+              to your contact details. Anything clinical we’ll discuss with you
               directly, in private.
             </p>
           </div>
@@ -265,7 +265,7 @@
                 role="status"
                 class="rounded-2xl bg-sage-100 px-4 py-3 text-sm text-sage-800"
               >
-                Thanks — we’ve got your details. We’ll reach out within one
+                Thanks, we’ve got your details. We’ll reach out within one
                 business day.
               </p>
               <p
@@ -358,12 +358,12 @@ const fieldClass =
   "transition-colors placeholder:text-ink-muted focus:border-sage-400 focus:outline-none " +
   "focus:ring-2 focus:ring-sage-300";
 
-// Structured options only — this form deliberately has no free-text field, so
+// Structured options only: this form deliberately has no free-text field, so
 // patients are not invited to disclose health information through it.
 const reasons = [
   "Booking a new appointment",
   "Question about fees",
-  "Existing patient — admin question",
+  "Existing patient: admin question",
   "Something else",
 ];
 const contactMethods = ["Email", "Phone call"];
@@ -418,7 +418,7 @@ const handleSubmit = async () => {
   };
 
   try {
-    // text/plain keeps this a "simple" request — Apps Script cannot answer
+    // text/plain keeps this a "simple" request, because Apps Script cannot answer
     // the CORS preflight that application/json would trigger.
     const res = await fetch(api.url, {
       method: "POST",

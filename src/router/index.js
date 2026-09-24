@@ -21,7 +21,7 @@ const routes = [
     meta: {
       title: "About",
       description:
-        "Meet Dr. Jemimah Ukata, PMHNP — the psychiatric mental health nurse practitioner behind Bliss Mind, and the principles that guide her care.",
+        "Meet Dr. Jemimah Ukata, PMHNP, the psychiatric mental health nurse practitioner behind Bliss Mind, and the principles that guide her care.",
     },
   },
   {

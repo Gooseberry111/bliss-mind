@@ -1,5 +1,5 @@
 /**
- * v-reveal — fades an element up as it scrolls into view.
+ * v-reveal fades an element up as it scrolls into view.
  *
  * Usage:
  *   <div v-reveal>            fade up when 12% visible
