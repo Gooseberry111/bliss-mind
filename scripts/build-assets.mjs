@@ -9,6 +9,7 @@
  */
 import sharp from "sharp";
 import { mkdir } from "node:fs/promises";
+import { existsSync } from "node:fs";
 
 const SRC = "src/assets/brand/logo-source.png";
 const BRAND = "src/assets/brand";
@@ -159,6 +160,49 @@ async function main() {
       .png()
       .toFile(`${PUBLIC}/og-image.png`),
   );
+
+  // --- Provider portrait -------------------------------------------------
+  // Two crops from one source: a square centred on the face for circular
+  // avatars, and a 4:5 portrait for the card on the home page.
+  const portraitSrc = `${BRAND}/provider-source.jpg`;
+  if (existsSync(portraitSrc)) {
+    const pm = await sharp(portraitSrc).metadata();
+
+    const side = Math.round(pm.width * 0.8);
+    report(
+      "provider avatar",
+      `${BRAND}/provider-avatar.webp`,
+      await sharp(portraitSrc)
+        .extract({
+          left: Math.round(pm.width * 0.1),
+          top: Math.min(Math.round(pm.height * 0.33), pm.height - side),
+          width: side,
+          height: side,
+        })
+        .resize({ width: 640 })
+        .webp({ quality: 86 })
+        .toFile(`${BRAND}/provider-avatar.webp`),
+    );
+
+    // Narrow in a little and anchor to the bottom, otherwise the 4:5 crop is
+    // mostly empty wall above her head.
+    const portraitWidth = Math.round(pm.width * 0.82);
+    const portraitHeight = Math.min(Math.round(portraitWidth / 0.8), pm.height);
+    report(
+      "provider portrait",
+      `${BRAND}/provider-portrait.webp`,
+      await sharp(portraitSrc)
+        .extract({
+          left: Math.max(0, Math.round(pm.width * 0.464 - portraitWidth / 2)),
+          top: pm.height - portraitHeight,
+          width: portraitWidth,
+          height: portraitHeight,
+        })
+        .resize({ width: 800 })
+        .webp({ quality: 86 })
+        .toFile(`${BRAND}/provider-portrait.webp`),
+    );
+  }
 
   console.log("\ndone");
 }

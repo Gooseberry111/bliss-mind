@@ -16,12 +16,10 @@
       >
         <div v-reveal class="md:col-span-5">
           <div class="glass sticky top-28 rounded-[2.5rem] p-8 text-center">
-            <div
-              class="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-sage-800 font-display text-5xl text-linen"
-              aria-hidden="true"
-            >
-              JU
-            </div>
+            <ProviderPortrait
+              variant="avatar"
+              class="mx-auto h-32 w-32 ring-4 ring-white/70"
+            />
             <h2 class="mt-6 font-display text-3xl font-medium text-ink">
               {{ provider.name }}
             </h2>
@@ -167,6 +165,7 @@ import CtaBanner from "../components/CtaBanner.vue";
 import FaqAccordion from "../components/FaqAccordion.vue";
 import PageHeader from "../components/PageHeader.vue";
 import PillLink from "../components/PillLink.vue";
+import ProviderPortrait from "../components/ProviderPortrait.vue";
 import SectionHeading from "../components/SectionHeading.vue";
 import { provider, practice, faqs } from "../data/site.js";
 

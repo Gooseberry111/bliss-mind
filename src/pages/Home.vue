@@ -203,34 +203,12 @@
       <div class="mx-auto grid max-w-5xl items-center gap-14 md:grid-cols-2">
         <div v-reveal class="relative mx-auto w-full max-w-sm">
           <div
-            class="aspect-4/5 overflow-hidden rounded-[2.5rem] border border-sand bg-gradient-to-br from-sage-100 via-linen to-clay-50 shadow-soft"
+            class="relative aspect-4/5 overflow-hidden rounded-[2.5rem] border border-sand shadow-soft"
           >
-            <div
-              class="flex h-full flex-col items-center justify-center gap-5 p-8"
-            >
-              <div
-                class="flex h-28 w-28 items-center justify-center rounded-full bg-sage-800 font-display text-4xl text-linen"
-                aria-hidden="true"
-              >
-                JU
-              </div>
-              <p class="text-center font-display text-2xl text-ink">
-                {{ provider.name }}
-              </p>
-              <p
-                class="text-center text-[0.65rem] font-bold uppercase tracking-[0.18em] text-sage-600"
-              >
-                {{ provider.credentials }}
-              </p>
-            </div>
+            <!-- No name overlay here: the section heading alongside already
+                 carries her name, and on mobile the two stack together. -->
+            <ProviderPortrait variant="card" />
           </div>
-          <img
-            :src="markSrc"
-            alt=""
-            width="320"
-            height="326"
-            class="animate-float-soft absolute -bottom-6 -right-4 h-24 w-auto"
-          />
         </div>
 
         <div>
@@ -360,10 +338,10 @@ import BlobField from "../components/BlobField.vue";
 import CtaBanner from "../components/CtaBanner.vue";
 import FaqAccordion from "../components/FaqAccordion.vue";
 import PillLink from "../components/PillLink.vue";
+import ProviderPortrait from "../components/ProviderPortrait.vue";
 import PricingCards from "../components/PricingCards.vue";
 import SectionHeading from "../components/SectionHeading.vue";
 import logoSrc from "../assets/brand/logo.webp";
-import markSrc from "../assets/brand/logo-mark.webp";
 import {
   site,
   provider,
