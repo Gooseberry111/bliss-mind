@@ -16,10 +16,14 @@
           <p
             class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium text-sage-200"
           >
-            <span
-              class="h-1.5 w-1.5 rounded-full bg-clay-400"
-              aria-hidden="true"
-            ></span>
+            <span class="relative flex h-2 w-2" aria-hidden="true">
+              <span
+                class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-clay-300"
+              ></span>
+              <span
+                class="relative inline-flex h-2 w-2 rounded-full bg-clay-400"
+              ></span>
+            </span>
             Accepting new patients
           </p>
         </div>

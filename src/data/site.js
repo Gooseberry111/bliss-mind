@@ -110,12 +110,13 @@ export const navLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
-// The slim bar above the header. One clear message, no motion.
-export const announcement = {
-  text: "Now accepting new patients in Kansas",
-  linkLabel: "Book a free 15-minute consultation",
-  to: "/contact",
-};
+// Scrolling announcement bar. Keep these short and factual.
+export const announcements = [
+  "Now accepting new patients",
+  "Free 15-minute consultation",
+  "100% virtual care across Kansas",
+  "Secure video appointments",
+];
 
 export const conditions = [
   {

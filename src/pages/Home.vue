@@ -11,9 +11,24 @@
       >
         <!-- Copy -->
         <div class="lg:col-span-7">
+          <span
+            v-reveal
+            class="inline-flex items-center gap-2.5 rounded-full border border-sage-200/80 bg-white/60 px-4 py-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-sage-700 backdrop-blur"
+          >
+            <span class="relative flex h-2 w-2" aria-hidden="true">
+              <span
+                class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-clay-400"
+              ></span>
+              <span
+                class="relative inline-flex h-2 w-2 rounded-full bg-clay-400"
+              ></span>
+            </span>
+            Accepting new patients in {{ practice.state }}
+          </span>
+
           <h1
             v-reveal="80"
-            class="font-display text-[2.75rem] font-medium leading-[1.05] text-ink sm:text-6xl lg:text-7xl"
+            class="mt-7 font-display text-[2.75rem] font-medium leading-[1.05] text-ink sm:text-6xl lg:text-7xl"
           >
             A calmer mind starts with
             <em class="not-italic text-sage-500">being heard.</em>
