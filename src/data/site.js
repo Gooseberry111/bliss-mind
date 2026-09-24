@@ -61,18 +61,19 @@ export const socials = [
   },
 ];
 
-// Online booking.
+// One Google Apps Script web app backs both the callback form and, later,
+// online booking. See apps-script/Code.gs and docs/BOOKING-SETUP.md.
 //
-// Bookings are handled by a Google Apps Script web app backed by a Google
-// Sheet (see apps-script/Code.gs and docs/BOOKING-SETUP.md). The site asks it
-// which slots are free, then posts the booking to it; the script writes the
-// row and emails both the patient and Dr. Ukata.
-//
-// Leave `apiUrl` empty and the Contact page shows a "booking coming soon"
-// card with the email and phone instead of a broken widget.
+// Until `url` is set, the callback form and the booking widget both show a
+// "reach us by email" fallback rather than silently failing.
+export const api = {
+  url: "", // TODO: paste the Apps Script /exec URL after deploying
+};
+
 export const booking = {
-  apiUrl: "", // TODO: paste the Apps Script /exec URL after deploying
-  // How many days of the calendar to offer at once.
+  // Flip to true once the spreadsheet tabs and availability are configured.
+  // The form works without this; booking does not.
+  enabled: false,
   daysVisible: 28,
   timezoneLabel: "Central Time (CT)",
   reasons: [
@@ -90,11 +91,6 @@ export const booking = {
   ],
 };
 
-// The free consultation, described once.
-//
-// Keep this in sync with the Description field on the booking system and any
-// confirmation email copy — patients read both, and mismatched expectations
-// between the booking page and the site look careless.
 export const consult = {
   headline: "Your first appointment is free.",
   duration: "15 minutes",

@@ -13,6 +13,23 @@ up owned by the wrong account and the emails come from the wrong address.
 
 ---
 
+## Two things, one deployment
+
+The same Apps Script powers **two** features, and you do not have to set up
+both at once:
+
+|                    | What it needs                                   | Time    |
+| ------------------ | ----------------------------------------------- | ------- |
+| **Callback form**  | Steps 1–4, then 9–10. **No spreadsheet setup.** | ~10 min |
+| **Online booking** | All of it, including the sheet tabs             | ~30 min |
+
+If you only want the contact form emailing you right now, do steps 1, 2, 3, 4,
+9 and 10, and skip 5 to 8. Come back for the rest whenever you are ready to
+turn booking on — you will not have to redo anything.
+
+Once booking is configured, set `booking.enabled = true` in
+`src/data/site.js` to switch it on.
+
 ## How it fits together
 
 ```
@@ -195,14 +212,15 @@ signed in and will fail for patients.
 
 1. Open `src/data/site.js` in the website repo.
 2. Find the `booking` block near the top.
-3. Paste your URL into `apiUrl`:
+3. Paste your URL into `api.url`:
 
 ```js
-export const booking = {
-  apiUrl: "https://script.google.com/macros/s/AKfycb..../exec",
-  ...
+export const api = {
+  url: "https://script.google.com/macros/s/AKfycb..../exec",
 };
 ```
+
+This one URL powers both the callback form and booking.
 
 4. Save, commit, and deploy the site.
 

@@ -1,7 +1,7 @@
 <template>
   <!-- Not configured yet: never render a broken widget -->
   <div
-    v-if="!booking.apiUrl"
+    v-if="!api.url || !booking.enabled"
     class="rounded-3xl border border-dashed border-sage-300 bg-sage-50/60 p-8 text-center"
   >
     <span
@@ -361,7 +361,7 @@
 import { computed, nextTick, onMounted, ref } from "vue";
 import AppIcon from "./AppIcon.vue";
 import PillLink from "./PillLink.vue";
-import { booking, contact } from "../data/site.js";
+import { api, booking, contact } from "../data/site.js";
 
 const labelClass = "mb-1.5 block text-sm font-medium text-ink";
 const fieldClass =
@@ -450,8 +450,7 @@ async function loadAvailability() {
     const to = new Date();
     to.setDate(to.getDate() + (booking.daysVisible || 28));
     const url =
-      `${booking.apiUrl}?action=availability` +
-      `&to=${to.toISOString().slice(0, 10)}`;
+      `${api.url}?action=availability` + `&to=${to.toISOString().slice(0, 10)}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
@@ -497,7 +496,7 @@ async function submit() {
   try {
     // text/plain keeps this a "simple" request — Apps Script cannot answer
     // the CORS preflight that application/json would trigger.
-    const res = await fetch(booking.apiUrl, {
+    const res = await fetch(api.url, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify({
@@ -541,7 +540,7 @@ function reset() {
 }
 
 onMounted(() => {
-  if (booking.apiUrl) loadAvailability();
+  if (api.url && booking.enabled) loadAvailability();
   else loading.value = false;
 });
 </script>

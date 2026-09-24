@@ -105,28 +105,28 @@ written for someone who has never opened Apps Script.
 After editing `Code.gs`, redeploy with **Deploy → Manage deployments → edit →
 New version** so the URL stays the same.
 
+## The callback form
+
+The form posts to the same Apps Script web app as booking, which emails the
+submission straight to the practice inbox and sends the enquirer an
+acknowledgement. There is no Netlify Forms involvement and nothing to switch
+on in a hosting dashboard.
+
+- `api.url` in `src/data/site.js` is the deployed `/exec` URL.
+- **The form needs no spreadsheet setup.** Paste `apps-script/Code.gs`, deploy
+  it, paste the URL in, and it works. The script falls back to a built-in
+  notification address if the Settings tab does not exist yet, and logs to an
+  `Enquiries` tab only if a spreadsheet is available.
+- Until `api.url` is set, the Contact page shows an "email us directly" card
+  instead of a form that cannot submit.
+- The form has no free-text field, so patients are not invited to disclose
+  health information through a channel not built for it.
+
 ## Deployment (Netlify)
 
-`netlify.toml` and `public/_redirects` are both configured for SPA
-history-mode routing. The callback form relies on Netlify Forms: because the
-real form is rendered by Vue, the hidden static copy in `index.html` is what
-registers it at deploy time — **keep the field names in the two in sync.**
-
-**The form cannot work on `npm run dev`.** It posts to `/`, which only
-Netlify intercepts — the Vite dev server has no handler there and returns 404.
-In development the submit is short-circuited: the payload is logged to the
-console and the success state is shown, so the UI can be tested. That branch is
-compiled out of the production build.
-
-**Form submissions do not email anyone by default.** They collect in the
-Netlify dashboard under _Forms_. To get them by email, go to
-**Site configuration → Forms → Form notifications → Add notification → Email
-notification** and enter the address. This is a dashboard setting, not
-something in this repo.
-
-The form deliberately has **no free-text field**. It collects contact details
-and fixed-choice options only, so patients are not invited to disclose health
-information through a channel that is not built for it.
+`netlify.toml` sets the build command, publish directory and Node version, and
+`public/_redirects` handles SPA history-mode routing. Connect the repo in
+Netlify and it builds itself — every push to `main` redeploys.
 
 ## Before launch
 
@@ -135,7 +135,8 @@ Placeholders to replace — all marked `TODO` in `src/data/site.js`:
 - `site.url` — production domain (used for canonical + `og:url`)
 - `contact.phone` — empty on purpose (no practice line yet); set it and
   phone links reappear across the site
-- `booking.url` — the scheduler link (see Booking above)
+- `api.url` — the Apps Script `/exec` URL (powers the form, and booking)
+- `booking.enabled` — flip to true once availability is configured
 - `provider.qualifications` — further credentials as they are added
 
 Also outstanding:

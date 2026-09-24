@@ -27,6 +27,12 @@ var SHEET_BOOKINGS = "Bookings";
 var SHEET_AVAILABILITY = "Availability";
 var SHEET_BLACKOUTS = "Blackouts";
 var SHEET_SETTINGS = "Settings";
+var SHEET_ENQUIRIES = "Enquiries";
+
+// Fallback notification address, used when the Settings tab does not exist
+// yet. This lets the callback form work from a bare paste-and-deploy, with no
+// spreadsheet setup at all.
+var FALLBACK_EMAIL = "blissmindss@gmail.com";
 
 var TIMEZONE = "America/Chicago";
 
@@ -376,6 +382,7 @@ function doPost(e) {
   try {
     var body = JSON.parse((e && e.postData && e.postData.contents) || "{}");
     if (body.action === "book") return json_(createBooking_(body));
+    if (body.action === "contact") return json_(createEnquiry_(body));
     return json_({ ok: false, error: "UNKNOWN_ACTION" });
   } catch (err) {
     return json_({ ok: false, error: "SERVER_ERROR", message: String(err) });
@@ -880,6 +887,145 @@ function cancelBooking_(id, token) {
   }
 
   return page("Not found", "We could not find that booking.");
+}
+
+// ---------------------------------------------------------------------------
+// Callback enquiries (the contact form)
+// ---------------------------------------------------------------------------
+
+/**
+ * Settings lookup that degrades gracefully. The callback form must work
+ * before anyone has run setupSheets(), so a missing Settings tab is not an
+ * error here.
+ */
+function settingsOrDefaults_() {
+  try {
+    var s = readSettings();
+    if (!s["Doctor Email"]) s["Doctor Email"] = FALLBACK_EMAIL;
+    return s;
+  } catch (e) {
+    return {
+      "Practice Name": "Bliss Mind",
+      "Doctor Email": FALLBACK_EMAIL,
+      "Reply To": FALLBACK_EMAIL,
+    };
+  }
+}
+
+function createEnquiry_(body) {
+  // Honeypot: a real person never fills this in.
+  if (body.website) return { ok: true };
+
+  var name = String(body.name || "").trim();
+  var email = String(body.email || "").trim();
+  var phone = String(body.phone || "").trim();
+  var reason = String(body.reason || "").trim();
+  var preferred = String(body.preferredContact || "").trim();
+  var bestTime = String(body.bestTime || "").trim();
+
+  if (!name) return err_("MISSING_NAME", "Please enter your name.");
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
+    return err_("BAD_EMAIL", "Please enter a valid email address.");
+
+  var settings = settingsOrDefaults_();
+  var practice = settings["Practice Name"] || "Bliss Mind";
+  var notify = settings["Doctor Email"] || FALLBACK_EMAIL;
+
+  // Log to a sheet when one is available. Best effort: a logging failure must
+  // never cost us the email.
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sh = ss.getSheetByName(SHEET_ENQUIRIES);
+    if (!sh) {
+      sh = ss.insertSheet(SHEET_ENQUIRIES);
+      sh.getRange(1, 1, 1, 7)
+        .setValues([
+          [
+            "Received",
+            "Name",
+            "Email",
+            "Phone",
+            "Reason",
+            "Reach By",
+            "Best Time",
+          ],
+        ])
+        .setFontWeight("bold")
+        .setBackground("#1c3327")
+        .setFontColor("#ffffff");
+      sh.setFrozenRows(1);
+    }
+    sh.appendRow([
+      new Date(),
+      name,
+      email,
+      phone,
+      reason,
+      preferred,
+      bestTime,
+    ]);
+  } catch (logErr) {
+    // no spreadsheet bound, or no permission - carry on and send the email
+  }
+
+  var rows = [
+    ["Name", name],
+    ["Email", email],
+    ["Phone", phone || "—"],
+    ["About", reason || "—"],
+    ["Reach by", preferred || "—"],
+    ["Best time", bestTime || "—"],
+  ]
+    .map(function (r) {
+      return (
+        '<tr><td style="padding:5px 14px 5px 0;color:#4a5f52">' +
+        r[0] +
+        '</td><td style="padding:5px 0"><strong>' +
+        r[1] +
+        "</strong></td></tr>"
+      );
+    })
+    .join("");
+
+  // To the practice
+  MailApp.sendEmail({
+    to: notify,
+    subject: "Callback request: " + name,
+    htmlBody: emailShell_(
+      '<h1 style="font-size:22px;margin:0 0 16px">New callback request</h1>' +
+        '<table style="font-size:14px;border-collapse:collapse">' +
+        rows +
+        "</table>" +
+        '<p style="font-size:13px;color:#4a5f52;margin-top:20px">Reply to this email to answer ' +
+        name +
+        " directly.</p>",
+    ),
+    name: practice,
+    replyTo: email,
+  });
+
+  // Acknowledgement to the person who asked
+  try {
+    MailApp.sendEmail({
+      to: email,
+      subject: "We’ve got your message — " + practice,
+      htmlBody: emailShell_(
+        '<h1 style="font-size:22px;margin:0 0 12px">Thanks for getting in touch</h1>' +
+          "<p>Hello " +
+          name +
+          ", we’ve received your request and will get back to you within one business day.</p>" +
+          "<p>You don’t need to do anything else.</p>" +
+          '<hr style="border:none;border-top:1px solid #e5ece1;margin:22px 0">' +
+          '<p style="font-size:12px;color:#77877c;margin:0">If you are in crisis or this is a medical emergency, please don’t wait for our reply — call or text 988 for the Suicide &amp; Crisis Lifeline, or dial 911.</p>',
+      ),
+      name: practice,
+      replyTo: settings["Reply To"] || notify,
+    });
+  } catch (ackErr) {
+    // the practice notification already went out; an ack failure is not fatal
+  }
+
+  return { ok: true };
 }
 
 // ---------------------------------------------------------------------------

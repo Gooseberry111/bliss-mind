@@ -152,15 +152,11 @@
           </div>
 
           <form
+            v-if="api.url"
             v-reveal="120"
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
             class="glass space-y-5 rounded-3xl p-7 md:p-8"
             @submit.prevent="handleSubmit"
           >
-            <input type="hidden" name="form-name" value="contact" />
             <p class="hidden">
               <label>
                 Leave this field empty:
@@ -295,6 +291,32 @@
             </button>
           </form>
 
+          <!-- No endpoint configured yet: point people at email rather than
+               showing a form that cannot submit. -->
+          <div
+            v-else
+            v-reveal="120"
+            class="glass rounded-3xl p-7 text-center md:p-8"
+          >
+            <span
+              class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-white/70 text-sage-700"
+            >
+              <AppIcon name="mail" size="lg" />
+            </span>
+            <h3 class="font-display text-2xl font-medium text-ink">
+              Email us directly
+            </h3>
+            <p
+              class="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-ink-soft"
+            >
+              Tell us your name and the best way to reach you, and we’ll get
+              back to you within one business day.
+            </p>
+            <PillLink :href="`mailto:${contact.email}`" class="mt-6" arrow>
+              {{ contact.email }}
+            </PillLink>
+          </div>
+
           <!-- Crisis notice -->
           <div
             v-reveal
@@ -319,8 +341,16 @@ import AppIcon from "../components/AppIcon.vue";
 import BookingWidget from "../components/BookingWidget.vue";
 import BlobField from "../components/BlobField.vue";
 import PageHeader from "../components/PageHeader.vue";
+import PillLink from "../components/PillLink.vue";
 import SectionHeading from "../components/SectionHeading.vue";
-import { contact, consult, practice, crisis, socials } from "../data/site.js";
+import {
+  api,
+  contact,
+  consult,
+  practice,
+  crisis,
+  socials,
+} from "../data/site.js";
 
 const labelClass = "mb-1.5 block text-sm font-medium text-ink";
 const fieldClass =
@@ -381,38 +411,28 @@ const handleSubmit = async () => {
   if (status.value === "sending") return;
   status.value = "sending";
 
-  const data = new URLSearchParams({
-    "form-name": "contact",
-    "bot-field": botField.value,
+  const payload = {
+    action: "contact",
+    website: botField.value, // honeypot
     ...form.value,
-  });
-
-  // Netlify Forms only exists on Netlify. The dev server has no POST handler
-  // for "/", so a real submit here would always 404. Log it instead so the
-  // success state can still be exercised locally. Vite compiles this branch
-  // out of the production bundle.
-  if (import.meta.env.DEV) {
-    console.info(
-      "[dev] form not sent — submissions only work once deployed:",
-      Object.fromEntries(data),
-    );
-    status.value = "success";
-    form.value = emptyForm();
-    return;
-  }
+  };
 
   try {
-    const res = await fetch("/", {
+    // text/plain keeps this a "simple" request — Apps Script cannot answer
+    // the CORS preflight that application/json would trigger.
+    const res = await fetch(api.url, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: data.toString(),
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.message || "Request failed");
 
     status.value = "success";
     form.value = emptyForm();
   } catch (err) {
-    console.error(err);
+    console.error("Callback request failed:", err);
     status.value = "error";
   }
 };
