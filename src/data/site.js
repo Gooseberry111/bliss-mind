@@ -8,8 +8,7 @@ export const site = {
   tagline: "Mental health. Mindful living. Real support.",
   description:
     "Virtual psychiatric care in Kansas with Dr. Jemimah Ukata, PMHNP. Treating anxiety, depression, ADHD, PTSD, OCD, sleep disorders and postpartum depression. Free 15-minute consultation.",
-  // TODO: replace with the production domain before launch.
-  url: "https://blissmind.com",
+  url: "https://blissmind.netlify.app",
 };
 
 export const provider = {
