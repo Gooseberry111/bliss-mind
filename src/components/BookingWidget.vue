@@ -22,9 +22,6 @@
       <PillLink :href="`mailto:${contact.email}`" variant="outline">
         {{ contact.email }}
       </PillLink>
-      <PillLink :href="`tel:${phoneHref}`" variant="outline">
-        {{ contact.phone }}
-      </PillLink>
     </div>
   </div>
 
@@ -414,8 +411,6 @@ const emptyForm = () => ({
   website: "",
 });
 const form = ref(emptyForm());
-
-const phoneHref = computed(() => contact.phone.replace(/[^+\d]/g, ""));
 
 const visibleDays = computed(() =>
   days.value.slice(

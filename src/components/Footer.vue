@@ -63,17 +63,25 @@
                 {{ contact.email }}
               </a>
             </li>
-            <li>
-              <a
-                :href="`tel:${phoneHref}`"
-                class="link-underline inline-block py-2 transition-colors hover:text-white"
-              >
-                {{ contact.phone }}
-              </a>
-            </li>
+
             <li class="py-2 text-sage-300">{{ contact.hours }}</li>
             <li class="py-2 text-sage-300">
               {{ practice.modality }} · {{ practice.state }}, USA
+            </li>
+          </ul>
+
+          <ul class="mt-4 flex items-center gap-3">
+            <li v-for="s in socials" :key="s.name">
+              <a
+                :href="s.url"
+                target="_blank"
+                rel="noopener"
+                :aria-label="`${s.name} — ${s.handle}`"
+                :title="s.handle"
+                class="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-sage-200 transition-colors hover:bg-white/15 hover:text-white"
+              >
+                <AppIcon :name="s.icon" size="sm" />
+              </a>
             </li>
           </ul>
         </div>
@@ -90,7 +98,15 @@
       <div
         class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-7 text-xs text-sage-400 sm:flex-row"
       >
-        <p>© {{ year }} {{ site.name }}. All rights reserved.</p>
+        <p>
+          © {{ year }} {{ site.name }}. All rights reserved. ·
+          <RouterLink
+            to="/privacy"
+            class="link-underline inline-block py-2 transition-colors hover:text-white"
+          >
+            Privacy Policy
+          </RouterLink>
+        </p>
         <p>{{ provider.role }} · Licensed in {{ practice.state }}</p>
       </div>
     </div>
@@ -98,18 +114,18 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import AppIcon from "./AppIcon.vue";
 import BlobField from "./BlobField.vue";
 import SiteLogo from "./SiteLogo.vue";
 import {
   site,
   contact,
   navLinks,
+  socials,
   provider,
   practice,
   crisis,
 } from "../data/site.js";
 
 const year = new Date().getFullYear();
-const phoneHref = computed(() => contact.phone.replace(/[^+\d]/g, ""));
 </script>

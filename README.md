@@ -133,7 +133,8 @@ information through a channel that is not built for it.
 Placeholders to replace — all marked `TODO` in `src/data/site.js`:
 
 - `site.url` — production domain (used for canonical + `og:url`)
-- `contact.phone`, `contact.hours` (email is set)
+- `contact.phone` — empty on purpose (no practice line yet); set it and
+  phone links reappear across the site
 - `booking.url` — the scheduler link (see Booking above)
 - `provider.qualifications` — further credentials as they are added
 
@@ -141,7 +142,10 @@ Also outstanding:
 
 - **All clinical copy is a first draft** written from the practice brief and
   needs Dr. Ukata's review before it goes live.
-- **A privacy policy page** — there is a footer slot for it but no page yet.
+- **The privacy policy** (`/privacy`) is a plain-language draft describing
+  what the site actually collects. It is explicitly _not_ the HIPAA Notice of
+  Privacy Practices, which is a separate document Dr. Ukata must provide to
+  patients.
 - **Scheduler and email under HIPAA** — a scheduler holds appointment data,
   and a free Gmail account is not covered by a Google BAA. Both are worth
   settling before real patients arrive; the callback form is deliberately

@@ -40,11 +40,26 @@ export const practice = {
 
 export const contact = {
   email: "blissmindss@gmail.com",
-  phone: "+1 (555) 000-0000", // TODO: real number
-  // Exact times vary by day, so the booking calendar is the source of truth
-  // rather than a fixed range here that would drift out of date.
+  // No dedicated practice line yet. Leaving this empty hides every phone
+  // link on the site rather than showing a number nobody answers.
+  phone: "",
   hours: "Mon – Fri, by appointment",
 };
+
+export const socials = [
+  {
+    name: "Instagram",
+    handle: "@bliss__mind",
+    url: "https://instagram.com/bliss__mind",
+    icon: "instagram",
+  },
+  {
+    name: "TikTok",
+    handle: "@bliss.mind",
+    url: "https://tiktok.com/@bliss.mind",
+    icon: "tiktok",
+  },
+];
 
 // Online booking.
 //
@@ -86,9 +101,9 @@ export const consult = {
   summary:
     "A short, no-pressure conversation to talk through what’s going on, answer your questions, and decide together whether Bliss Mind is the right fit — and if so, how often we’d meet. There’s no cost and no obligation.",
   points: [
-    "We meet by video — your link will be in the confirmation email.",
+    "We meet by secure video — your link is sent by email beforehand.",
     "You’ll need to be physically located in Kansas at the time of the call.",
-    "Please don’t include medical details when booking. We’ll cover all of that in the conversation, privately.",
+    "Please don’t include medical details when you get in touch. We’ll cover all of that in the conversation, privately.",
     "This consultation is not a clinical evaluation or treatment.",
   ],
 };

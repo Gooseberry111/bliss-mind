@@ -141,12 +141,6 @@
             >
               {{ contact.email }}
             </a>
-            <a
-              :href="`tel:${phoneHref}`"
-              class="block text-ink-soft transition-colors hover:text-ink"
-            >
-              {{ contact.phone }}
-            </a>
           </div>
         </div>
       </div>
@@ -155,7 +149,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import PillLink from "./PillLink.vue";
 import SiteLogo from "./SiteLogo.vue";
@@ -166,8 +160,6 @@ const menuOpen = ref(false);
 const scrolled = ref(false);
 const drawerRef = ref(null);
 const toggleRef = ref(null);
-
-const phoneHref = computed(() => contact.phone.replace(/[^+\d]/g, ""));
 
 // Close the drawer on navigation so it never lingers over the new page.
 watch(

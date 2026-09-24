@@ -45,6 +45,16 @@ const routes = [
     },
   },
   {
+    path: "/privacy",
+    name: "privacy",
+    component: () => import("../pages/Privacy.vue"),
+    meta: {
+      title: "Privacy Policy",
+      description:
+        "What the Bliss Mind website collects, why, and what happens to it.",
+    },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "not-found",
     component: () => import("../pages/NotFound.vue"),

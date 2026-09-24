@@ -96,6 +96,28 @@
               </span>
             </li>
           </ul>
+
+          <div v-reveal="180" class="mt-6">
+            <p
+              class="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-sage-600"
+            >
+              Follow along
+            </p>
+            <ul class="mt-3 flex items-center gap-3">
+              <li v-for="s in socials" :key="s.name">
+                <a
+                  :href="s.url"
+                  target="_blank"
+                  rel="noopener"
+                  :aria-label="`${s.name} — ${s.handle}`"
+                  class="flex items-center gap-2.5 rounded-full border border-sage-200 bg-white/60 px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-sage-400 hover:bg-white"
+                >
+                  <AppIcon :name="s.icon" size="sm" class="text-sage-700" />
+                  {{ s.handle }}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <!-- ============ Right: callback form ============ -->
@@ -256,11 +278,11 @@
                 class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800"
               >
                 Something went wrong sending your request. Please try again, or
-                call
-                <a :href="`tel:${phoneHref}`" class="underline">
-                  {{ contact.phone }}
-                </a>
-                .
+                email us directly at
+                <a :href="`mailto:${contact.email}`" class="underline">{{
+                  contact.email
+                }}</a
+                >.
               </p>
             </Transition>
 
@@ -298,7 +320,7 @@ import BookingWidget from "../components/BookingWidget.vue";
 import BlobField from "../components/BlobField.vue";
 import PageHeader from "../components/PageHeader.vue";
 import SectionHeading from "../components/SectionHeading.vue";
-import { contact, consult, practice, crisis } from "../data/site.js";
+import { contact, consult, practice, crisis, socials } from "../data/site.js";
 
 const labelClass = "mb-1.5 block text-sm font-medium text-ink";
 const fieldClass =
@@ -314,10 +336,8 @@ const reasons = [
   "Existing patient — admin question",
   "Something else",
 ];
-const contactMethods = ["Email", "Phone"];
+const contactMethods = ["Email", "Phone call"];
 const times = ["Any time", "Morning", "Afternoon", "Evening"];
-
-const phoneHref = computed(() => contact.phone.replace(/[^+\d]/g, ""));
 
 const details = computed(() => [
   {
@@ -326,12 +346,7 @@ const details = computed(() => [
     value: contact.email,
     href: `mailto:${contact.email}`,
   },
-  {
-    icon: "phone",
-    label: "Phone",
-    value: contact.phone,
-    href: `tel:${phoneHref.value}`,
-  },
+
   { icon: "clock", label: "Hours", value: contact.hours, href: "" },
   {
     icon: "monitor",
